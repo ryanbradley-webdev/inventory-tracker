@@ -1,0 +1,41 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--color-bg);
+    font-family: 'League Spartan';
+}
+
+main {
+    position: relative;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+button {
+    padding: 6px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.exclude-mobile {
+    display: none;
+}
+
+@media only screen and (min-width: 481px) {
+    .include-mobile {
+        display: none;
+    }
+
+    .exclude-mobile {
+        display: inherit;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #root {
+        flex-direction: row;
+        align-items: center;
+    }
+}

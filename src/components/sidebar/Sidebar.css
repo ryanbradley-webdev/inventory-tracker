@@ -1,0 +1,111 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-sidebar-primary);
+}
+
+.logo-background {
+    position: relative;
+    height: 4.5rem;
+    width: 4.5rem;
+    background: var(--color-purple-primary);
+    border-top-right-radius: var(--border-radius-sidebar);
+    border-bottom-right-radius: var(--border-radius-sidebar);
+}
+
+.logo-filler {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2.25rem;
+    background: var(--color-purple-secondary);
+    border-top-left-radius: var(--border-radius-sidebar);
+    border-bottom-right-radius: var(--border-radius-sidebar);
+}
+
+#icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 26px;
+    width: 28px;
+    transform: translate(-50%, -50%);
+}
+
+.sidebar-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.mode-indicator path {
+    fill: #7E88C3;
+}
+
+.mode-indicator:hover path {
+    fill: #DFE3FA;
+}
+
+.mode-indicator div {
+    background: #858BB2;
+}
+
+.mode-indicator:hover div {
+    background: #DFE3FA;
+}
+
+.divider {
+    height: 4.5rem;
+    width: 1px;
+    background: var(--color-sidebar-secondary);
+}
+
+#avatar {
+    width: 2rem;
+    border-radius: 2rem;
+    margin-right: 1.5rem;
+}
+
+@media only screen and (min-width: 1200px) {
+    header {
+        flex-direction: column;
+        height: 100vh;
+        height: 100dvh;
+        width: 103px;
+        border-top-right-radius: var(--border-radius-sidebar);
+        border-bottom-right-radius: var(--border-radius-sidebar);
+    }
+
+    .logo-background {
+        height: 103px;
+        width: 103px;
+    }
+
+    .logo-filler {
+        height: 52px;
+    }
+
+    #icon {
+        height: 37px;
+        width: 40px;
+    }
+
+    .sidebar-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .divider {
+        height: 1px;
+        width: 100%;
+    }
+
+    #avatar {
+        width: 2.5rem;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+}
