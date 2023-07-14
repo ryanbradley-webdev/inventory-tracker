@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+}
+
+.filter_btn {
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-primary);
+}

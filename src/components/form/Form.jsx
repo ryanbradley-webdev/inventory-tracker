@@ -3,8 +3,11 @@ import Button from "../Button"
 import FormItem from "./FormItem"
 import PlusIcon from "../../assets/PlusIcon"
 import LeftArrowIcon from "../../assets/LeftArrowIcon"
+import { useSearchParams } from "react-router-dom"
 
-export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
+export default function Form({ hideForm, isVisible, invoice }) {
+    const [searchParams, setSearchParams] = useSearchParams()
+
     const [items, setItems] = useState([])
 
     const styles = { 
@@ -29,6 +32,11 @@ export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
         }
     }
 
+    function closeForm() {
+        setSearchParams()
+        hideForm()
+    }
+
     function handleSubmit(e) {
         e.preventDefault()
     }
@@ -43,11 +51,16 @@ export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
 
     return (
         <div style={styles.modal}>
-            <button onClick={hideForm} style={styles.button}>
+            <button onClick={closeForm} style={styles.button}>
                 <LeftArrowIcon />
                 <span style={styles.text}>Go Back</span>
             </button>
-            <h2>New Invoice</h2>
+            {invoice ? (
+                    <h2>Edit <span>#</span>{invoice?.id}</h2>
+                ) : (
+                    <h2>New Invoice</h2>
+                )
+            }
             <form action="" onSubmit={handleSubmit}>
                 <fieldset>
                     <h4>Bill From</h4>
@@ -81,7 +94,7 @@ export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="date">Invoice Date</label>
-                    <input type="date" name="date" id="date" disabled={editInvoice} />
+                    <input type="date" name="date" id="date" disabled={invoice} />
                     <label htmlFor="term">Payment Terms</label>
                     <select name="term" id="term">
                         <option value=""></option>
@@ -96,7 +109,7 @@ export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
                     <PlusIcon />
                     <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
                 </Button>
-                {newInvoice && (
+                {invoice ? (
                     <div>
                         <Button>
                             Discard
@@ -108,8 +121,7 @@ export default function Form({ newInvoice, editInvoice, hideForm, isVisible }) {
                             Save & Send
                         </Button>
                     </div>
-                )}
-                {editInvoice && (
+                ) :  (
                     <div>
                         <Button>
                             Cancel

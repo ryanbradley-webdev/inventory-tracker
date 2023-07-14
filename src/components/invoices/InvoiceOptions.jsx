@@ -1,9 +1,19 @@
+import { useSearchParams } from "react-router-dom"
 import Button from "../Button"
 
 export default function InvoiceOptions({ openForm, handleDelete, markAsPaid }) {
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    function toggleEditInvoiceForm() {
+        setSearchParams({
+            edit: true
+        })
+        openForm()
+    }
+
     return (
         <>
-            <Button onClick={openForm}>
+            <Button onClick={toggleEditInvoiceForm}>
                 Edit
             </Button>
             <Button onClick={handleDelete}>

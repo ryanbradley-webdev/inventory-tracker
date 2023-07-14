@@ -6,7 +6,7 @@ import StatusChip from '../StatusChip'
 import DeleteInvoiceModal from './DeleteInvoiceModal'
 import InvoiceOptions from './InvoiceOptions'
 
-export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice }) {
+export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, toggleEditInvoiceForm }) {
     const { id } = useParams()
     const [formVisible, setFormVisible] = useState(false)
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
@@ -100,12 +100,12 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice }
                     <p>Price</p>
                     <p>Total</p>
                     {items.length > 0 && items.map(item => (
-                        <>
+                        <div key={crypto.randomUUID()}>
                             <p>{item.name}</p>
                             <p>{item.quantity}</p>
                             <p>${item.price}</p>
                             <p>${item.total}</p>
-                        </>
+                        </div>
                     ))}
                     <div>
                         <span>Amount Due</span>
@@ -115,9 +115,10 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice }
             </div>
             <div className='include-mobile'>
                 <InvoiceOptions 
-                    openForm={toggleForm} 
+                    openForm={toggleEditInvoiceForm} 
                     handleDelete={toggleDeleteModal} 
                     markAsPaid={markAsPaid} 
+                    id={invoice.id}
                 />
             </div>
             <DeleteInvoiceModal 
@@ -125,11 +126,6 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice }
                 isVisible={deleteModalVisible} 
                 closeModal={toggleDeleteModal} 
                 deleteInvoice={handleDelete} 
-            />
-            <Form 
-                isVisible={formVisible} 
-                hideForm={toggleForm} 
-                editInvoice 
             />
         </>
     )
