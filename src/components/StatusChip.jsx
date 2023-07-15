@@ -24,16 +24,17 @@ export default function StatusChip({ status }) {
         chip: {
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '1rem',
-            width: 'fit-content',
-            padding: '12px 18px',
             fontSize: '15px',
             fontWeight: 'bold',
             lineHeight: '15px',
             letterSpacing: '-0.25px',
             color,
             backgroundColor: colorBG,
-            borderRadius: '6px'
+            borderRadius: '6px',
+            width: '104px',
+            height: '40px'
         },
         indicator: {
             height: '8px', 

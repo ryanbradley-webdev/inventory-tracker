@@ -5,13 +5,15 @@ export default function Invoice({ invoice, selectInvoice }) {
     return (
         <div className={styles.card} onClick={() => selectInvoice(invoice.id.toLowerCase())}>
             <div className={styles.card_top}>
-                <span>#{invoice.id}</span>
-                <span>{invoice.clientName}</span>
+                <span className={styles.bold_text}>
+                    <span style={{ color: 'var(--color-text-accent)'}}>#</span>{invoice.id}
+                </span>
+                <span className={styles.accent_text}>{invoice.clientName}</span>
             </div>
             <div className={styles.card_bottom}>
                 <div>
-                    <span>Due {formatDate(invoice.paymentDue)}</span>
-                    <span>$ {invoice.total}</span>
+                    <span className={styles.accent_text}>Due {formatDate(invoice.paymentDue)}</span>
+                    <span className={styles.bold_text}>$ {invoice.total}</span>
                 </div>
                 <StatusChip status={invoice.status} />
             </div>

@@ -39,5 +39,19 @@
 
 .card_bottom > div {
     display: grid;
-    row-gap: 9px;
+    row-gap: 12px;
+}
+
+.bold_text {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.25px;
+}
+
+.accent_text {
+    color: var(--color-text-accent);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
 }
