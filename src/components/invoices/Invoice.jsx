@@ -1,4 +1,5 @@
 import { formatCurrency } from "../../../lib/formatCurrency"
+import LeftArrowIcon from "../../assets/LeftArrowIcon"
 import StatusChip from "../StatusChip"
 import styles from './invoices.module.css'
 
@@ -9,14 +10,16 @@ export default function Invoice({ invoice, selectInvoice }) {
                 <span className={styles.bold_text}>
                     <span style={{ color: 'var(--color-text-accent)'}}>#</span>{invoice.id}
                 </span>
+                <span className={`${styles.accent_text} exclude-mobile`}>Due {formatDate(invoice.paymentDue)}</span>
                 <span className={styles.accent_text}>{invoice.clientName}</span>
             </div>
             <div className={styles.card_bottom}>
                 <div>
-                    <span className={styles.accent_text}>Due {formatDate(invoice.paymentDue)}</span>
+                    <span className={`${styles.accent_text} include-mobile`}>Due {formatDate(invoice.paymentDue)}</span>
                     <span className={styles.bold_text}>$ {formatCurrency(invoice.total)}</span>
                 </div>
                 <StatusChip status={invoice.status} />
+                <LeftArrowIcon />
             </div>
         </div>
     )

@@ -65,12 +65,51 @@
     background-color: var(--color-bg-input);
     border-radius: 8px;
     margin-block: 16px;
+    box-shadow: 0px 10px 10px -10px var(--color-box-shadow);
+}
+
+@media screen and (min-width: 481px) {
+    .card {
+        display: flex;
+        padding-block: 20px;
+        width: 100%;
+    }
 }
 
 .card_top,
 .card_bottom {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+}
+
+.card_bottom svg {
+    rotate: 180deg;
+}
+
+@media screen and (min-width: 481px) {
+    .card_top,
+    .card_bottom {
+        display: grid;
+    }
+
+    .card_top {
+        flex-grow: 1;
+        grid-template-columns: 80px 1fr 1fr;
+    }
+
+    .card_bottom {
+        grid-template-columns: 1fr 104px 5px;
+        column-gap: 20px;
+    }
+
+    .card_bottom > div:first-child {
+        margin-right: 20px;
+    }
+
+    .card_bottom span:last-child {
+        text-align: right;
+    }
 }
 
 .card_bottom > div {

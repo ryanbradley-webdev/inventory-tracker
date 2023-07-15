@@ -17,6 +17,7 @@ main {
 
 button {
     padding: 6px;
+    font-family: inherit;
 }
 
 button,
