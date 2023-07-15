@@ -1,5 +1,5 @@
 import { formatCurrency } from "../../../lib/formatCurrency"
-import LeftArrowIcon from "../../assets/LeftArrowIcon"
+import RightArrowIcon from "../../assets/RightArrowIcon"
 import StatusChip from "../StatusChip"
 import styles from './invoices.module.css'
 
@@ -19,7 +19,7 @@ export default function Invoice({ invoice, selectInvoice }) {
                     <span className={styles.bold_text}>$ {formatCurrency(invoice.total)}</span>
                 </div>
                 <StatusChip status={invoice.status} />
-                <LeftArrowIcon />
+                <RightArrowIcon className='exclude-mobile' />
             </div>
         </div>
     )
