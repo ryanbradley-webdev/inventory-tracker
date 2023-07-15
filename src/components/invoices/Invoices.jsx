@@ -17,13 +17,9 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
             <div className={styles.header}>
                 <div>
                     <h1>Invoices</h1>
-                    {invoices.length === 0 ? (
-                        <h2>No invoices</h2>
-                    ) : (
-                        <h2>{invoices.length} invoices</h2>
-                    )
-
-                    }
+                    <h2 className={styles.subheader}>
+                        {invoices.length === 0 ? 'No invoices' : `${invoices.length} invoices`}
+                    </h2>
                 </div>
                 <div className={styles.headerRight}>
                     <button className={styles.filter_btn}>
