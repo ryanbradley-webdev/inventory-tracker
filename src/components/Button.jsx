@@ -16,7 +16,8 @@ export default function Button({ variant, onClick, children }) {
         border: 'none',
         borderRadius: '100px',
         backgroundColor: color,
-        outline: 'transparent'
+        outline: 'transparent',
+        paddingInline: '15px'
     }
 
     return (

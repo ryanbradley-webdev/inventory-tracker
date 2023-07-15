@@ -23,7 +23,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                 </div>
                 <div className={styles.headerRight}>
                     <button className={styles.filter_btn}>
-                        <span>Filter</span>
+                        <span className={styles.bold_text}>Filter</span>
                         <span className='exclude-mobile'>by status</span>
                         <ArrowDownIcon />
                     </button>

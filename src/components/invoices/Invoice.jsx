@@ -1,3 +1,4 @@
+import { formatCurrency } from "../../../lib/formatCurrency"
 import StatusChip from "../StatusChip"
 import styles from './invoices.module.css'
 
@@ -13,7 +14,7 @@ export default function Invoice({ invoice, selectInvoice }) {
             <div className={styles.card_bottom}>
                 <div>
                     <span className={styles.accent_text}>Due {formatDate(invoice.paymentDue)}</span>
-                    <span className={styles.bold_text}>$ {invoice.total}</span>
+                    <span className={styles.bold_text}>$ {formatCurrency(invoice.total)}</span>
                 </div>
                 <StatusChip status={invoice.status} />
             </div>

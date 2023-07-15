@@ -5,7 +5,8 @@ export default function PlusIcon() {
         width: '2rem',
         height: '2rem',
         backgroundColor: '#FFFFFF',
-        borderRadius: '1rem'
+        borderRadius: '1rem',
+        marginLeft: '-9px'
     }
 
     return (

@@ -2,11 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 32px;
 }
 
 .headerRight {
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
 .subheader {
@@ -16,6 +18,9 @@
 }
 
 .filter_btn {
+    display: flex;
+    gap: 12px;
+    align-items: center;
     border: none;
     background-color: transparent;
     color: var(--color-text-primary);
