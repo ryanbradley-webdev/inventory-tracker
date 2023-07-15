@@ -1,3 +1,8 @@
+.wrapper {
+    max-width: 730px;
+    margin-inline: auto;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -110,6 +115,12 @@
         display: flex;
         padding-block: 20px;
         width: 100%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .card {
+        height: 72px;
     }
 }
 

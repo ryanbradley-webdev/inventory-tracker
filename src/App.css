@@ -13,6 +13,7 @@ main {
     overflow-y: scroll;
     padding-inline: 24px;
     padding-block: 32px;
+    color: var(--color-text-primary);
 }
 
 @media screen and (min-width: 481px) {
@@ -35,7 +36,10 @@ label {
 @media only screen and (min-width: 1200px) {
     #root {
         flex-direction: row;
-        align-items: center;
+    }
+
+    main {
+        padding-block: 77px;
     }
 }
 

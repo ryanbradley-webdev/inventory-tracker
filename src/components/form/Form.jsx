@@ -16,7 +16,8 @@ export default function Form({ hideForm, isVisible, invoice }) {
             inset: '0', 
             background: '#FFFFFF', 
             transform: isVisible ? '' : 'translateX(-100%)',
-            transition: 'transform 0.3s ease-in-out'
+            transition: 'transform 0.3s ease-in-out',
+            maxWidth: '616px'
         },
         button: {
             outline: 'transparent',

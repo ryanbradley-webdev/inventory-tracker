@@ -42,7 +42,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
     }, [filter])
 
     return (
-        <>
+        <section className={styles.wrapper}>
             <div className={styles.header}>
                 <div>
                     <h1 className={styles.h1}>Invoices</h1>
@@ -75,6 +75,6 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                 ? <IllustrationEmpty />
                 : filteredInvoices.map(invoice => <Invoice invoice={invoice} key={invoice.id} selectInvoice={selectInvoice} />)
             }
-        </>
+        </section>
     )
 }

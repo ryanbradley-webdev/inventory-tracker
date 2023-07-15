@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../BackButton'
-import Form from '../form/Form'
 import StatusChip from '../StatusChip'
 import DeleteInvoiceModal from './DeleteInvoiceModal'
 import InvoiceOptions from './InvoiceOptions'
+import { formatCurrency } from '../../../lib/formatCurrency'
+import styles from './invoices.module.css'
 
 export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, toggleEditInvoiceForm }) {
     const { id } = useParams()
-    const [formVisible, setFormVisible] = useState(false)
+
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
 
     const invoice = invoices.find(invoice => invoice.id.toLowerCase() == id.toLowerCase())
+
     const { 
         status, 
         description, 
@@ -45,19 +47,15 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
         updateInvoice(invoice)
     }
 
-    function toggleForm() {
-        setFormVisible(!formVisible)
-    }
-
     return (
-        <>
+        <section className={styles.wrapper}>
             <BackButton handleClick={handleClick} />
             <div>
                 <span>Status</span>
                 <StatusChip status={status} />
                 <div className='exclude-mobile'>
                     <InvoiceOptions 
-                        openForm={toggleForm} 
+                        openForm={toggleEditInvoiceForm} 
                         handleDelete={toggleDeleteModal} 
                         markAsPaid={markAsPaid} 
                     />
@@ -103,13 +101,13 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                         <div key={crypto.randomUUID()}>
                             <p>{item.name}</p>
                             <p>{item.quantity}</p>
-                            <p>${item.price}</p>
-                            <p>${item.total}</p>
+                            <p>${formatCurrency(item.price)}</p>
+                            <p>${formatCurrency(item.total)}</p>
                         </div>
                     ))}
                     <div>
                         <span>Amount Due</span>
-                        <span>${total}</span>
+                        <span>${formatCurrency(total)}</span>
                     </div>
                 </div>
             </div>
@@ -127,6 +125,6 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                 closeModal={toggleDeleteModal} 
                 deleteInvoice={handleDelete} 
             />
-        </>
+        </section>
     )
 }
