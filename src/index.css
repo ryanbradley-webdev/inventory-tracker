@@ -19,6 +19,8 @@
   --color-bg-filter: #FFFFFF;
   --color-bg-edit: #F9FAFE;
   --color-bg-discard: #F9FAFE;
+  --color-bg-items: #F9FAFE;
+  --color-bg-amount-due: #373B53;
   --color-input-border: #DFE3FA;
   --color-checkbox-background: #DFE3FA;
   --color-box-shadow: #48549f40;
@@ -39,6 +41,8 @@
   --color-bg-menu: #141625;
   --color-bg-input: #1e2139;
   --color-bg-filter: #252945;
+  --color-bg-items: #252945;
+  --color-bg-amount-due: #0C0E16;
   --color-input-border: #252945;
   --color-checkbox-background: #1E2139;
   --color-box-shadow: #00000042;

@@ -50,7 +50,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
     return (
         <section className={styles.wrapper}>
             <BackButton handleClick={handleClick} />
-            <div>
+            <section className={styles.status}>
                 <span>Status</span>
                 <StatusChip status={status} />
                 <div className='exclude-mobile'>
@@ -60,57 +60,56 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                         markAsPaid={markAsPaid} 
                     />
                 </div>
-            </div>
-            <div>
-                <div>
-                    <h5>#{invoice.id}</h5>
-                    <p>{description}</p>
+            </section>
+            <section className={styles.content}>
+                <div className={styles.invoice_info_address}>
+                    <div className={styles.invoice_info}>
+                        <h5>#{invoice.id}</h5>
+                        <p>{description}</p>
+                    </div>
+                    <div className={styles.address}>
+                        <p>{senderAddress.street}</p>
+                        <p>{senderAddress.city}</p>
+                        <p>{senderAddress.postCode}</p>
+                        <p>{senderAddress.country}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>{senderAddress.street}</p>
-                    <p>{senderAddress.city}</p>
-                    <p>{senderAddress.postCode}</p>
-                    <p>{senderAddress.country}</p>
+                <div className={styles.invoice_client_info}>
+                    <div className={styles.invoice_dates}>
+                        <h6>Invoice Date</h6>
+                        <p>{createdAt}</p>
+                        <h6>Payment Due</h6>
+                        <p>{paymentDue}</p>
+                    </div>
+                    <div className={styles.client_address}>
+                        <h6>Bill To</h6>
+                        <p>{clientName}</p>
+                        <p>{clientAddress.street}</p>
+                        <p>{clientAddress.city}</p>
+                        <p>{clientAddress.postCode}</p>
+                        <p>{clientAddress.country}</p>
+                    </div>
+                    <div className={styles.client_email}>
+                        <h6>Sent To</h6>
+                        <p>{clientEmail}</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div>
-                    <h6>Invoice Date</h6>
-                    <p>{createdAt}</p>
-                    <h6>Payment Due</h6>
-                    <p>{paymentDue}</p>
-                </div>
-                <div>
-                    <h6>Bill To</h6>
-                    <p>{clientName}</p>
-                    <p>{clientAddress.street}</p>
-                    <p>{clientAddress.city}</p>
-                    <p>{clientAddress.postCode}</p>
-                    <p>{clientAddress.country}</p>
-                </div>
-                <div>
-                    <h6>Sent To</h6>
-                    <p>{clientEmail}</p>
-                </div>
-                <div>
-                    <p>Item Name</p>
-                    <p>QTY.</p>
-                    <p>Price</p>
-                    <p>Total</p>
+                <div className={styles.invoice_items}>
                     {items.length > 0 && items.map(item => (
-                        <div key={crypto.randomUUID()}>
-                            <p>{item.name}</p>
-                            <p>{item.quantity}</p>
-                            <p>${formatCurrency(item.price)}</p>
+                        <div key={crypto.randomUUID()} className={styles.item}>
+                            <div>                                
+                                <p>{item.name}</p>
+                                <p>{item.quantity} x ${formatCurrency(item.price)}</p>
+                            </div>
                             <p>${formatCurrency(item.total)}</p>
                         </div>
                     ))}
-                    <div>
-                        <span>Amount Due</span>
-                        <span>${formatCurrency(total)}</span>
+                    <div className={styles.item_amount_due}>
+                        <span>Grand Total</span>
+                        <span>$ {formatCurrency(total)}</span>
                     </div>
                 </div>
-            </div>
+            </section>
             <div className='include-mobile'>
                 <InvoiceOptions 
                     openForm={toggleEditInvoiceForm} 
