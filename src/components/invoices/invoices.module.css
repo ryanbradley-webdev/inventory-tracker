@@ -102,6 +102,7 @@
     border-radius: 8px;
     margin-block: 16px;
     box-shadow: 0px 10px 10px -10px var(--color-box-shadow);
+    cursor: pointer;
 }
 
 @media screen and (min-width: 481px) {
