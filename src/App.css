@@ -17,22 +17,11 @@ main {
 
 button {
     padding: 6px;
-    color: #FFFFFF;
-    font-weight: bold;
 }
 
-.exclude-mobile {
-    display: none;
-}
-
-@media only screen and (min-width: 481px) {
-    .include-mobile {
-        display: none;
-    }
-
-    .exclude-mobile {
-        display: inherit;
-    }
+button,
+label {
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 1200px) {

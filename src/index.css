@@ -19,12 +19,14 @@
   --color-bg-edit: #F9FAFE;
   --color-bg-discard: #F9FAFE;
   --color-input-border: #DFE3FA;
+  --color-box-shadow: #48549f40;
   --border-radius-sidebar: 20px;
   --border-radius-item: 8px;
   --border-radius-button: 100px;
 }
 
 .dark-mode {
+  --color-text-primary: #FFFFFF;
   --color-invoice-draft: #DFE3FA;
   --color-bg-draft: #DFE3FA0F;
   --color-sidebar-primary: #1E2139;
@@ -34,6 +36,7 @@
   --color-bg-menu: #141625;
   --color-bg-input: #1e2139;
   --color-input-border: #252945;
+  --color-box-shadow: #00000042;
 }
 
 *,
