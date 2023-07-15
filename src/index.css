@@ -16,9 +16,11 @@
   --color-bg: #F8F8FB;
   --color-bg-menu: #FFFFFF;
   --color-bg-input: #FFFFFF;
+  --color-bg-filter: #FFFFFF;
   --color-bg-edit: #F9FAFE;
   --color-bg-discard: #F9FAFE;
   --color-input-border: #DFE3FA;
+  --color-checkbox-background: #DFE3FA;
   --color-box-shadow: #48549f40;
   --border-radius-sidebar: 20px;
   --border-radius-item: 8px;
@@ -36,7 +38,9 @@
   --color-bg: #141625;
   --color-bg-menu: #141625;
   --color-bg-input: #1e2139;
+  --color-bg-filter: #252945;
   --color-input-border: #252945;
+  --color-checkbox-background: #1E2139;
   --color-box-shadow: #00000042;
 }
 
