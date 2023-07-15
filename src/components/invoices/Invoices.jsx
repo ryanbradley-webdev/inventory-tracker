@@ -13,7 +13,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
     const [filter, setFilter] = useState([])
     const [filterMenuVisible, setFilterMenuVisible] = useState(false)
 
-    const [filteredInvoices, setFilteredInvoices] = useState([])
+    const [filteredInvoices, setFilteredInvoices] = useState(invoices)
 
     function selectInvoice(id) {
         navigate(`/${id}`)
@@ -32,14 +32,14 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
         </>
     )
 
-    /* useEffect(() => {
+    useEffect(() => {
         if (filter.length > 0) {
             setFilteredInvoices(invoices.filter(invoice => filter.includes(invoice.status)))
         } else {
             setFilteredInvoices(invoices)
         }
 
-    }, [filter]) */
+    }, [filter])
 
     return (
         <>
