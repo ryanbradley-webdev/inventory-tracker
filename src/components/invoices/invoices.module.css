@@ -13,6 +13,12 @@
     margin-bottom: 3px;
 }
 
+@media screen and (min-width: 481px) {
+    .h1 {
+        font-size: 36px;
+    }
+}
+
 .headerRight {
     display: flex;
     align-items: center;
@@ -22,6 +28,7 @@
 .subheader {
     font-size: 13px;
     font-weight: 500;
+    letter-spacing: -0.1px;
     color: var(--color-text-secondary);
 }
 

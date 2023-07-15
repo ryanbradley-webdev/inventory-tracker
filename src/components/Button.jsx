@@ -9,21 +9,30 @@ function pickBtnColor(variant) {
 export default function Button({ variant, onClick, children }) {
     const color = pickBtnColor(variant)
 
-    const styles = {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        border: 'none',
-        borderRadius: '100px',
-        backgroundColor: color,
-        outline: 'transparent',
-        paddingInline: '15px'
+    const localStyles = {
+        button: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            border: 'none',
+            borderRadius: '100px',
+            backgroundColor: color,
+            outline: 'transparent',
+            paddingInline: '15px'
+        },
+        span: {
+            flexGrow: '1',
+            color: 'white',
+            fontWeight: '700',
+            fontSize: '15px',
+            letterSpacing: '-0.25px'
+        }
     }
 
     return (
-        <button style={styles} onClick={onClick}>
+        <button style={localStyles.button} onClick={onClick}>
             {variant === 'new' && <PlusIcon />}
-            <span style={{ flexGrow: '1' }}>
+            <span style={localStyles.span}>
                 {children}
             </span>
         </button>

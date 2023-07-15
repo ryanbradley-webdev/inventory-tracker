@@ -23,6 +23,15 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
         setFilterMenuVisible(!filterMenuVisible)
     }
 
+    const invoiceCount = (
+        <>
+            <span className='exclude-mobile'>There are&nbsp;</span>
+            {invoices.length}
+            <span className='exclude-mobile'>&nbsp;total</span>
+            &nbsp;invoice{invoices.length !== 1 && 's'}
+        </>
+    )
+
     useEffect(() => {
         if (filter.length > 0) {
             setFilteredInvoices(invoices.filter(invoice => filter.includes(invoice.status)))
@@ -38,7 +47,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                 <div>
                     <h1 className={styles.h1}>Invoices</h1>
                     <h2 className={styles.subheader}>
-                        {invoices.length === 0 ? 'No invoices' : `${invoices.length} invoices`}
+                        {invoices.length === 0 ? 'No invoices' : invoiceCount}
                     </h2>
                 </div>
                 <div className={styles.headerRight}>
@@ -57,6 +66,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                     </div>
                     <Button variant='new' onClick={toggleEditInvoiceForm}>
                         New
+                        <span className='exclude-mobile'>&nbsp;Invoice</span>
                     </Button>
                 </div>
             </div>

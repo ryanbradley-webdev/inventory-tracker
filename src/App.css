@@ -15,6 +15,13 @@ main {
     padding-block: 32px;
 }
 
+@media screen and (min-width: 481px) {
+    main {
+        padding-inline: 48px;
+        padding-block: 51px;
+    }
+}
+
 button {
     padding: 6px;
     font-family: inherit;
