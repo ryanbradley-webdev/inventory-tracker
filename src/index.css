@@ -27,6 +27,7 @@
 
 .dark-mode {
   --color-text-primary: #FFFFFF;
+  --color-text-secondary: #DFE3FA;
   --color-invoice-draft: #DFE3FA;
   --color-bg-draft: #DFE3FA0F;
   --color-sidebar-primary: #1E2139;

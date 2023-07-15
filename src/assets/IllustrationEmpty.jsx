@@ -1,8 +1,8 @@
 export default function IllustrationEmpty() {
     return (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', marginTop: '20vh' }}>
             <svg width="242" height="200" xmlns="http://www.w3.org/2000/svg">
-                <g fill-rule="nonzero" fill="none">
+                <g fillRule="nonzero" fill="none">
                     <path fill="#E6E7E8" d="M31.136 83.879l85.035-53.67 85.036 53.67v78.304H31.136z"/>
                     <path d="M201.207 162.577H31.136a.394.394 0 01-.394-.394V83.88a.378.378 0 01.181-.33L115.96 29.91a.402.402 0 01.417 0l85.067 53.677c.117.07.189.195.189.33v78.305a.394.394 0 01-.425.354zm-169.7-.787h169.345V84.1l-84.68-53.402-84.666 53.401v77.691z" fill="#231F20"/>
                     <path d="M136.887 62.8c2.827-4.666 3.544-10.339 3.284-15.784a38.428 38.428 0 00-4.592-17.034 15.387 15.387 0 00-4.915-5.634c-2.552-1.574-4.293-.511-6.79-.936-2.11-.362-4.316-1.865-6.655-2.25a21.632 21.632 0 00-15.517 3.241C93.7 29.81 90.005 40.14 81.735 45.16c-8.105 4.894-18.478 3.423-27.568 6.13a30.73 30.73 0 00-10.523 5.555 18.346 18.346 0 00-5.151 6.145c-2.135 4.453-1.576 9.756 0 14.454 1.575 4.83 4.237 9.442 8.365 12.44 3.457 2.494 7.703 3.642 11.901 4.398 5.71 1.03 11.626 1.416 17.329.18a25.263 25.263 0 0011.397-5.539c1.402-1.25 2.174-2.958 3.481-4.201 1.804-1.708 4.616-2.754 6.727-4.06 3.3-2.054 6.608-4.241 10.373-5.217 9.562-2.486 23.055-3.163 28.82-12.644z" fill="#FFF"/>
@@ -74,11 +74,11 @@ export default function IllustrationEmpty() {
                     <path d="M79.215 29.66a.378.378 0 01-.308-.15l-6.222-7.696a.394.394 0 11.614-.495l6.223 7.703a.393.393 0 01-.307.637zM60.65 23.522a.397.397 0 01-.095-.787l9.594-2.455a.394.394 0 01.48.283.385.385 0 01-.283.473l-9.594 2.462-.103.024z" fill="#D1D3D4"/>
                 </g>
             </svg>
-            <div style={{ fontSize: '1.5rem', letterSpacing: '-0.75px', fontWeight: 'bold' }}>There is nothing here</div>
-            <p style={{ fontSize: '13px', fontWeight: '500', letterSpacing: '-0.1px', lineHeight: '15px' }}>
-                Create an invoice by clicking the
+            <div style={{ fontSize: '1.5rem', letterSpacing: '-0.75px', fontWeight: 'bold', color: 'var(--color-text-primary)', marginBottom: '23px', marginTop: '66px' }}>There is nothing here</div>
+            <p style={{ fontSize: '13px', fontWeight: '500', letterSpacing: '-0.1px', lineHeight: '15px', color: 'var(--color-text-secondary)' }}>
+                Create <span className='exclude-mobile'>a new</span><span className='include-mobile'>an</span> invoice by clicking the
                 <br />
-                <span style={{ fontWeight: 'bold' }}>New</span> button and get started
+                <span style={{ fontWeight: 'bold' }}>New <span className="exclude-mobile">Invoice</span></span> button and get started
             </p>
         </div>
     )
