@@ -20,3 +20,24 @@
     background-color: transparent;
     color: var(--color-text-primary);
 }
+
+.card {
+    display: grid;
+    row-gap: 24px;
+    padding-block: 25px;
+    padding-inline: 24px;
+    background-color: var(--color-bg-input);
+    border-radius: 8px;
+    margin-block: 16px;
+}
+
+.card_top,
+.card_bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_bottom > div {
+    display: grid;
+    row-gap: 9px;
+}

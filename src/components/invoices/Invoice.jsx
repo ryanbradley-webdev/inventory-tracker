@@ -1,33 +1,20 @@
 import StatusChip from "../StatusChip"
+import styles from './invoices.module.css'
 
 export default function Invoice({ invoice, selectInvoice }) {
-    const styles = {
-        card: {
-            backgroundColor: 'var(--color-bg-input)',
-            boxShadow: '0px 10px 10px -10px #48549F1A',
-            borderRadius: '8px',
-            marginBottom: '1rem',
-            cursor: 'pointer'
-        },
-        info: {
-            display: 'flex',
-            flexDirection: 'column'
-        }
-    }
-
     return (
-        <div style={styles.card} onClick={() => selectInvoice(invoice.id.toLowerCase())}>
-            <div>
+        <div className={styles.card} onClick={() => selectInvoice(invoice.id.toLowerCase())}>
+            <div className={styles.card_top}>
                 <span>#{invoice.id}</span>
-            </div>
-            <div>
                 <span>{invoice.clientName}</span>
             </div>
-            <div style={styles.info}>
-                <span>Due {formatDate(invoice.paymentDue)}</span>
-                <span>$ {invoice.total}</span>
+            <div className={styles.card_bottom}>
+                <div>
+                    <span>Due {formatDate(invoice.paymentDue)}</span>
+                    <span>$ {invoice.total}</span>
+                </div>
+                <StatusChip status={invoice.status} />
             </div>
-            <StatusChip status={invoice.status} />
         </div>
     )
 }

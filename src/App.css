@@ -11,6 +11,8 @@ main {
     position: relative;
     flex-grow: 1;
     overflow-y: scroll;
+    padding-inline: 24px;
+    padding-block: 32px;
 }
 
 button {
