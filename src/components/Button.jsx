@@ -1,14 +1,6 @@
 import PlusIcon from "../assets/PlusIcon";
 
-function pickBtnColor(variant) {
-    if (variant === 'delete') return 'var(--color-red-primary)'
-    if (variant === 'edit') return 'var(--color-bg-edit)'
-    return 'var(--color-purple-primary)'
-}
-
 export default function Button({ variant, onClick, children }) {
-    const color = pickBtnColor(variant)
-
     const localStyles = {
         button: {
             display: 'flex',
@@ -16,7 +8,6 @@ export default function Button({ variant, onClick, children }) {
             gap: '10px',
             border: 'none',
             borderRadius: '100px',
-            backgroundColor: color,
             outline: 'transparent',
             paddingInline: '15px'
         },
@@ -30,7 +21,7 @@ export default function Button({ variant, onClick, children }) {
     }
 
     return (
-        <button style={localStyles.button} onClick={onClick}>
+        <button style={localStyles.button} onClick={onClick} className={`button ${variant}`}>
             {variant === 'new' && <PlusIcon />}
             <span style={localStyles.span}>
                 {children}

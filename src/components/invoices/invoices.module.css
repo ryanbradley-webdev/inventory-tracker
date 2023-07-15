@@ -162,7 +162,7 @@
 }
 
 .accent_text {
-    color: var(--color-text-accent);
+    color: var(--color-text-secondary);
     font-size: 13px;
     font-weight: 500;
     letter-spacing: -0.1px;

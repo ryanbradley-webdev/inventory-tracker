@@ -38,3 +38,23 @@ label {
         align-items: center;
     }
 }
+
+.button {
+    transition: background-color 0.25s ease;
+}
+
+.button.new {
+    background-color: var(--color-purple-primary);
+}
+
+.button.edit {
+    background-color: var(--color-bg-edit);
+}
+
+.button.delete {
+    background-color: var(--color-red-primary);
+}
+
+.button.new:is(:hover, :focus) {
+    background-color: var(--color-purple-secondary);
+}

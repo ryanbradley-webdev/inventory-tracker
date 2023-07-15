@@ -56,7 +56,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                             <span className={styles.bold_text}>Filter
                             <span className='exclude-mobile'>&nbsp;by status</span>
                             </span>
-                            <ArrowDownIcon />
+                            <ArrowDownIcon menuOpen={filterMenuVisible} />
                         </button>
                         {filterMenuVisible && <FilterMenu
                             filter={filter}
