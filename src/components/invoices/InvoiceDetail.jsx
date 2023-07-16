@@ -119,7 +119,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                 />
             </div>
             <DeleteInvoiceModal 
-                id={id} 
+                id={invoice.id} 
                 isVisible={deleteModalVisible} 
                 closeModal={toggleDeleteModal} 
                 deleteInvoice={handleDelete} 

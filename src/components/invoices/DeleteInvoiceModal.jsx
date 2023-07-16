@@ -1,27 +1,18 @@
 import React from 'react'
 import Button from '../Button'
+import styles from './invoices.module.css'
 
 export default function DeleteInvoiceModal({ id, isVisible, closeModal, deleteInvoice }) {
-    const styles = {
-        screen: {
-            position: 'absolute',
-            inset: '0',
-            display: isVisible ? 'grid' : 'none',
-            placeItems: 'center',
-            backgroundColor: '#0000000F'
-        }
-    }
-
     return (
-        <div style={styles.screen}>
-            <form action="" method='dialog'>
+        <div style={{ display: isVisible ? 'grid' : 'none' }} className={styles.delete_modal}>
+            <form action="" method='dialog' className={styles.delete_modal_form}>
                 <h3>Confirm Deletion</h3>
                 <p>Are you sure you want to delete invoice #{id}? This action cannot be undone.</p>
                 <div>
-                    <Button onClick={closeModal}>
+                    <Button onClick={closeModal} variant='cancel'>
                         Cancel
                     </Button>
-                    <Button onClick={() => deleteInvoice(id)}>
+                    <Button onClick={() => deleteInvoice(id)} variant='delete'>
                         Delete
                     </Button>
                 </div>
