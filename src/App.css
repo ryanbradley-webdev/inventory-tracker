@@ -66,6 +66,7 @@ label {
 }
 
 .button.delete {
+    color: white;
     background-color: var(--color-red-primary);
 }
 
@@ -92,13 +93,15 @@ label {
     fill: var(--color-add-item);
 }
 
-.button.save {
+.button.save,
+.button.paid {
     color: white;
     background-color: var(--color-purple-primary);
 }
 
 .button.cancel,
-.button.discard {
+.button.discard,
+.button.edit {
     color: var(--color-label);
     background-color: var(--color-bg-items);
 }

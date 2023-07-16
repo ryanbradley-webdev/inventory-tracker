@@ -8,8 +8,7 @@ export default function Button({ variant, onClick, children }) {
             gap: '10px',
             border: 'none',
             borderRadius: '100px',
-            outline: 'transparent',
-            paddingInline: '15px'
+            outline: 'transparent'
         },
         span: {
             flexGrow: '1',

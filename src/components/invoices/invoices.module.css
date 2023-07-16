@@ -248,3 +248,15 @@
     font-weight: 700;
     letter-spacing: -0.5px;
 }
+
+.btn_div {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    background-color: var(--color-bg-input);
+    margin-inline: -24px;
+    margin-bottom: -33px;
+    margin-top: 56px;
+    padding-inline: 24px;
+    padding-block: 21px;
+}
