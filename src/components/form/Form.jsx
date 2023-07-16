@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "../Button"
 import FormItem from "./FormItem"
 import PlusIcon from "../../assets/PlusIcon"
@@ -9,7 +9,10 @@ import styles from './form.module.css'
 export default function Form({ hideForm, isVisible, invoice }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const [items, setItems] = useState(invoice?.items || [])
+    const [items, setItems] = useState(invoice?.items.map(item => ({
+        ...item,
+        id: crypto.randomUUID()
+    })) || [])
 
     const localStyles = { 
         modal: {
@@ -49,13 +52,26 @@ export default function Form({ hideForm, isVisible, invoice }) {
         e.preventDefault()
     }
 
-    function removeItem() {
-
+    function removeItem(id) {
+        setItems(prevItems => prevItems.filter(item => item.id !== id))
     }
 
-    function updateItem() {
-        
+    function updateItem(item) {
+        setItems(prevItems => prevItems.map(prevItem => {
+            if (item.id === prevItem.id) {
+                return item
+            } else {
+                return prevItem
+            }
+        }))
     }
+
+    useEffect(() => {
+        setItems(invoice?.items.map(item => ({
+            ...item,
+            id: crypto.randomUUID()
+        })) || [])
+    }, [invoice])
 
     return (
         <div style={localStyles.modal}>
@@ -120,8 +136,11 @@ export default function Form({ hideForm, isVisible, invoice }) {
                         <label htmlFor="description">Project Description</label>
                         <input type="text" name="description" id="description" />
                     </fieldset>
+                    <h3 className={styles.item_header}>Item List</h3>
                     <ul>
-                        {items.length > 0 && items.map(item => <FormItem item={item} removeItem={removeItem} updateItem={updateItem} />)}
+                        {items.length > 0 && items.map(item => (
+                                <FormItem {...item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
+                            ))}
                     </ul>
                     <Button variant='add'>
                         <PlusIcon />
@@ -134,7 +153,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
                         {!invoice && <Button variant='draft'>
                             Save As Draft
                         </Button>}
-                        <Button variant='save'>
+                        <Button variant='save' submit>
                             Save {invoice ? 'Changes' : '& Send'}
                         </Button>
                     </div>

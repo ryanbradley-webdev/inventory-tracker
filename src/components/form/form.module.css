@@ -50,3 +50,52 @@
     height: 64px;
     background: linear-gradient(to bottom, transparent, #0000001a);
 }
+
+.item_header {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.38px;
+    line-height: 32px;
+    color: #777F98;
+    margin-bottom: 22px;
+}
+
+.form_item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form_item button {
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    margin-top: 46px;
+    margin-left: auto;
+}
+
+.form_item > * {
+    width: 100%;
+}
+
+.form_item > div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.form_item > div label:first-of-type input {
+    width: 64px;
+}
+
+.form_item > div label:nth-of-type(2) input {
+    width: 100px;
+}
+
+.form_item > div label:last-of-type p {
+    line-height: 48px;
+    color: var(--color-text-accent);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+}

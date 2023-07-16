@@ -1,6 +1,6 @@
 import PlusIcon from "../assets/PlusIconLg";
 
-export default function Button({ variant, onClick, children }) {
+export default function Button({ variant, onClick, children, submit }) {
     const localStyles = {
         button: {
             display: 'flex',
@@ -19,7 +19,7 @@ export default function Button({ variant, onClick, children }) {
     }
 
     return (
-        <button style={localStyles.button} onClick={onClick} className={`button ${variant}`}>
+        <button style={localStyles.button} onClick={onClick} className={`button ${variant}`} type={submit ? 'submit' : 'button' }>
             {variant === 'new' && <PlusIcon />}
             <span style={localStyles.span}>
                 {children}
