@@ -28,3 +28,25 @@
     }
 }
 
+.btn_div {
+    position: relative;
+    display: flex;
+    width: calc(100% + 48px);
+    justify-content: flex-end;
+    gap: 7px;
+    background-color: var(--color-bg-input);
+    margin-inline: -24px;
+    margin-bottom: -33px;
+    padding-inline: 24px;
+    padding-block: 21px;
+}
+
+.btn_div::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -64px;
+    width: 100%;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent, #0000001a);
+}

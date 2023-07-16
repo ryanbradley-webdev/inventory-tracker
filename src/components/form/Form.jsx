@@ -123,32 +123,21 @@ export default function Form({ hideForm, isVisible, invoice }) {
                     <ul>
                         {items.length > 0 && items.map(item => <FormItem item={item} removeItem={removeItem} updateItem={updateItem} />)}
                     </ul>
-                    <Button>
+                    <Button variant='add'>
                         <PlusIcon />
                         <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
                     </Button>
-                    {invoice ? (
-                        <div>
-                            <Button>
-                                Discard
-                            </Button>
-                            <Button>
-                                Save As Draft
-                            </Button>
-                            <Button>
-                                Save & Send
-                            </Button>
-                        </div>
-                    ) :  (
-                        <div>
-                            <Button>
-                                Cancel
-                            </Button>
-                            <Button>
-                                Save Changes
-                            </Button>
-                        </div>
-                    )}
+                    <div className={styles.btn_div}>
+                        <Button variant={invoice ? 'cancel' : 'discard'}>
+                            {invoice ? 'Cancel' : 'Discard'}
+                        </Button>
+                        {!invoice && <Button variant='draft'>
+                            Save As Draft
+                        </Button>}
+                        <Button variant='save'>
+                            Save {invoice ? 'Changes' : '& Send'}
+                        </Button>
+                    </div>
                 </form>
             </div>
         </div>

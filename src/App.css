@@ -44,11 +44,21 @@ label {
 }
 
 .button {
-    transition: background-color 0.25s ease;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+    padding-inline: 24px;
 }
 
 .button.new {
+    color: white;
     background-color: var(--color-purple-primary);
+    transition: background-color 0.25s ease;
+}
+
+.button.new svg {
+    fill: var(--color-purple-primary);
 }
 
 .button.edit {
@@ -61,6 +71,45 @@ label {
 
 .button.new:is(:hover, :focus) {
     background-color: var(--color-purple-secondary);
+}
+
+.button.add {
+    width: 100%;
+    background-color: var(--color-bg-items);
+    margin-bottom: 88px;
+    transition: background-color 0.25s ease;
+}
+
+.button.add:is(:hover, :focus) {
+    background-color: #DFE3FA;
+}
+
+.button.add span {
+    color: var(--color-add-item);
+}
+
+.button.add svg {
+    fill: var(--color-add-item);
+}
+
+.button.save {
+    color: white;
+    background-color: var(--color-purple-primary);
+}
+
+.button.cancel,
+.button.discard {
+    color: var(--color-label);
+    background-color: var(--color-bg-items);
+}
+
+.button.discard {
+    margin-right: auto;
+}
+
+.button.draft {
+    color: var(--color-text-secondary);
+    background-color: #373B53;
 }
 
 fieldset {
@@ -100,7 +149,8 @@ select {
     caret-color: var(--color-purple-primary);
 }
 
-input:is(:hover, :focus) {
+input:is(:hover, :focus),
+select:is(:hover, :focus) {
     outline: none;
     border: 1px solid var(--color-purple-primary);
 }

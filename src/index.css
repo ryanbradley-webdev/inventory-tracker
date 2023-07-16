@@ -4,6 +4,7 @@
   --color-text-primary: #0C0E16;
   --color-text-secondary: #888EB0;
   --color-text-accent: #7E88C3;
+  --color-add-item: #7E88C3;
   --color-purple-primary: #7C5DFA;
   --color-purple-secondary: #9277FF;
   --color-red-primary: #EC5757;
@@ -33,6 +34,7 @@
 .dark-mode {
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #DFE3FA;
+  --color-add-item: #888EB0;
   --color-invoice-draft: #DFE3FA;
   --color-bg-draft: #DFE3FA0F;
   --color-sidebar-primary: #1E2139;

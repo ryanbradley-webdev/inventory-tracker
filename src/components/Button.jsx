@@ -1,4 +1,4 @@
-import PlusIcon from "../assets/PlusIcon";
+import PlusIcon from "../assets/PlusIconLg";
 
 export default function Button({ variant, onClick, children }) {
     const localStyles = {
@@ -13,7 +13,6 @@ export default function Button({ variant, onClick, children }) {
         },
         span: {
             flexGrow: '1',
-            color: 'white',
             fontWeight: '700',
             fontSize: '15px',
             letterSpacing: '-0.25px'
