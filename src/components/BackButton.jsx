@@ -1,11 +1,12 @@
 import LeftArrowIcon from "../assets/LeftArrowIcon"
 
-export default function BackButton({ handleClick }) {
+export default function BackButton({ handleClick, marginBottom }) {
     const styles = {
         button: {
             outline: 'transparent',
             background: 'none',
-            border: 'none'
+            border: 'none',
+            marginBottom: marginBottom || ''
         },
         text: { 
             marginLeft: '1.5rem',

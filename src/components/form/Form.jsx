@@ -13,11 +13,14 @@ export default function Form({ hideForm, isVisible, invoice }) {
     const styles = { 
         modal: {
             position: 'absolute', 
-            inset: '0', 
+            inset: '0',
+            bottom: 'auto', 
             background: 'var(--color-bg)', 
             transform: isVisible ? '' : 'translateX(-100%)',
             transition: 'transform 0.3s ease-in-out',
-            maxWidth: '616px'
+            maxWidth: '616px',
+            paddingInline: '24px',
+            paddingBlock: '33px'
         },
         button: {
             outline: 'transparent',
@@ -30,6 +33,12 @@ export default function Form({ hideForm, isVisible, invoice }) {
             fontSize: '15px',
             fontWeight: 'bold',
             letterSpacing: '-0.25px'
+        },
+        h4: {
+            fontSize: '15px',
+            fontWeight: '700',
+            letterSpacing: '-0.25px',
+            color: 'var(--color-purple-primary)'
         }
     }
 
@@ -52,7 +61,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
 
     return (
         <div style={styles.modal}>
-            <BackButton handleClick={closeForm} />
+            <BackButton handleClick={closeForm} marginBottom='26px' />
             {invoice ? (
                     <h2>Edit <span>#</span>{invoice?.id}</h2>
                 ) : (
@@ -61,20 +70,20 @@ export default function Form({ hideForm, isVisible, invoice }) {
             }
             <form action="" onSubmit={handleSubmit}>
                 <fieldset>
-                    <h4>Bill From</h4>
+                    <h4 style={styles.h4}>Bill From</h4>
                     <label htmlFor="from-address">Street Address</label>
                     <input type="text" name="from-address" id="from-address" />
                     <div>
                         <label htmlFor="from-city">City</label>
-                        <input type="text" name="from-city" id="from-city" />
                         <label htmlFor="from-post-code">Post Code</label>
+                        <input type="text" name="from-city" id="from-city" />
                         <input type="text" name="from-post-code" id="from-post-code" />
-                        <label htmlFor="from-country">Country</label>
-                        <input type="text" name="from-country" id="from-country" />
                     </div>
+                    <label htmlFor="from-country">Country</label>
+                    <input type="text" name="from-country" id="from-country" />
                 </fieldset>
                 <fieldset>
-                    <h4>Bill To</h4>
+                    <h4 style={styles.h4}>Bill To</h4>
                     <label htmlFor="name">Client's Name</label>
                     <input type="text" name="name" id="name" />
                     <label htmlFor="email">Client's Email</label>
@@ -83,12 +92,12 @@ export default function Form({ hideForm, isVisible, invoice }) {
                     <input type="text" name="to-address" id="to-address" />
                     <div>
                         <label htmlFor="to-city">City</label>
-                        <input type="text" name="to-city" id="to-city" />
                         <label htmlFor="to-post-code">Post Code</label>
+                        <input type="text" name="to-city" id="to-city" />
                         <input type="text" name="to-post-code" id="to-post-code" />
-                        <label htmlFor="to-country">Country</label>
-                        <input type="text" name="to-country" id="to-country" />
                     </div>
+                    <label htmlFor="to-country">Country</label>
+                    <input type="text" name="to-country" id="to-country" />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="date">Invoice Date</label>
