@@ -194,6 +194,18 @@
     box-shadow: 0px 10px 10px -10px var(--color-box-shadow);
 }
 
+.content h5 > span {
+    color: var(--color-text-accent);
+}
+
+.content h6 {
+    margin-bottom: 13px;
+}
+
+.content p {
+    line-height: 18px;
+}
+
 .invoice_info_address {
     display: flex;
     flex-direction: column;
@@ -206,6 +218,15 @@
     grid-template-columns: repeat(2, 1fr);
     row-gap: 32px;
     margin-bottom: 38px;
+}
+
+.client_address > p:first-of-type {
+    margin-top: 13px;
+    margin-bottom: 7px;
+}
+
+.invoice_dates > div:first-child {
+    margin-bottom: 31px;
 }
 
 .client_email {
@@ -241,6 +262,14 @@
     font-size: 13px;
     font-weight: 500;
     letter-spacing: -0.1px;
+}
+
+.item_price {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+    color: var(--color-add-item);
+    margin-top: 8px;
 }
 
 .item_amount_due span:last-child {

@@ -57,10 +57,10 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                     />
                 </div>
             </section>
-            <section className={styles.content}>
+            <section className={`${styles.content} ${styles.accent_text}`}>
                 <div className={styles.invoice_info_address}>
                     <div className={styles.invoice_info}>
-                        <h5>#{invoice.id}</h5>
+                        <h5 className={styles.bold_text}><span>#</span>{invoice.id}</h5>
                         <p>{description}</p>
                     </div>
                     <div className={styles.address}>
@@ -72,32 +72,36 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                 </div>
                 <div className={styles.invoice_client_info}>
                     <div className={styles.invoice_dates}>
-                        <h6>Invoice Date</h6>
-                        <p>{createdAt}</p>
-                        <h6>Payment Due</h6>
-                        <p>{paymentDue}</p>
+                        <div>
+                            <h6 className={styles.accent_text}>Invoice Date</h6>
+                            <p className={styles.bold_text}>{createdAt}</p>
+                        </div>
+                        <div>
+                            <h6 className={styles.accent_text}>Payment Due</h6>
+                            <p className={styles.bold_text}>{paymentDue}</p>
+                        </div>
                     </div>
                     <div className={styles.client_address}>
-                        <h6>Bill To</h6>
-                        <p>{clientName}</p>
+                        <h6 className={styles.accent_text}>Bill To</h6>
+                        <p className={styles.bold_text}>{clientName}</p>
                         <p>{clientAddress.street}</p>
                         <p>{clientAddress.city}</p>
                         <p>{clientAddress.postCode}</p>
                         <p>{clientAddress.country}</p>
                     </div>
                     <div className={styles.client_email}>
-                        <h6>Sent To</h6>
-                        <p>{clientEmail}</p>
+                        <h6 className={styles.accent_text}>Sent To</h6>
+                        <p className={styles.bold_text}>{clientEmail}</p>
                     </div>
                 </div>
                 <div className={styles.invoice_items}>
                     {items.length > 0 && items.map(item => (
                         <div key={crypto.randomUUID()} className={styles.item}>
                             <div>                                
-                                <p>{item.name}</p>
-                                <p>{item.quantity} x ${formatCurrency(item.price)}</p>
+                                <p className={styles.bold_text}>{item.name}</p>
+                                <p className={styles.item_price}>{item.quantity} x ${formatCurrency(item.price)}</p>
                             </div>
-                            <p>${formatCurrency(item.total)}</p>
+                            <p className={styles.bold_text}>${formatCurrency(item.total)}</p>
                         </div>
                     ))}
                     <div className={styles.item_amount_due}>
