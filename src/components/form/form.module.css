@@ -1,0 +1,30 @@
+.wrapper {
+    max-width: 616px;
+    background: var(--color-bg);
+    padding-inline: 24px;
+    padding-block: 33px;
+}
+
+@media screen and (min-width: 616px) {
+    .wrapper {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+}
+
+.address_info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 23px;
+}
+
+@media screen and (max-width: 534px) {
+    .address_info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .address_info label:last-child {
+        grid-column: 1 / span 2;
+    }
+}
+
