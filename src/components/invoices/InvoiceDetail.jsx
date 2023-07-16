@@ -29,10 +29,6 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
 
     const navigate = useNavigate()
 
-    function handleClick() {
-        navigate(-1)
-    }
-
     function toggleDeleteModal() {
         setDeleteModalVisible(!deleteModalVisible)
     }
@@ -49,7 +45,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
 
     return (
         <section className={styles.wrapper}>
-            <BackButton handleClick={handleClick} />
+            <BackButton handleClick={() => navigate(-1)} />
             <section className={styles.status}>
                 <span>Status</span>
                 <StatusChip status={status} />

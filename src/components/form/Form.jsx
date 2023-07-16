@@ -2,19 +2,19 @@ import { useState } from "react"
 import Button from "../Button"
 import FormItem from "./FormItem"
 import PlusIcon from "../../assets/PlusIcon"
-import LeftArrowIcon from "../../assets/LeftArrowIcon"
 import { useSearchParams } from "react-router-dom"
+import BackButton from "../BackButton"
 
 export default function Form({ hideForm, isVisible, invoice }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState(invoice?.items || [])
 
     const styles = { 
         modal: {
             position: 'absolute', 
             inset: '0', 
-            background: '#FFFFFF', 
+            background: 'var(--color-bg)', 
             transform: isVisible ? '' : 'translateX(-100%)',
             transition: 'transform 0.3s ease-in-out',
             maxWidth: '616px'
@@ -52,10 +52,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
 
     return (
         <div style={styles.modal}>
-            <button onClick={closeForm} style={styles.button}>
-                <LeftArrowIcon />
-                <span style={styles.text}>Go Back</span>
-            </button>
+            <BackButton handleClick={closeForm} />
             {invoice ? (
                     <h2>Edit <span>#</span>{invoice?.id}</h2>
                 ) : (
