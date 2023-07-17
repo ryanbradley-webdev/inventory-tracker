@@ -6,6 +6,7 @@ export const initialAddress = {
 }
 
 export const initialItem = {
+    id: crypto.randomUUID(),
     name: "",
     quantity: 1,
     price: 0,

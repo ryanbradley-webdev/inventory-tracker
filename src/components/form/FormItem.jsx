@@ -12,42 +12,57 @@ export default function FormItem({
     removeItem,
     updateItem
 }) {
+    const [itemName, setItemName] = useState(name)
+    const [itemQuantity, setItemQuantity] = useState(quantity)
+    const [itemPrice, setItemPrice] = useState(price ? formatCurrency(price) : '0.00')
     const [itemTotal, setItemTotal] = useState(total || 0)
 
-    function handleChange(e, property) {
-        const value = e.target.value
+    function handlePriceChange(e) {
+        let [dollars, cents] = e.target.value.split('.')
 
-        const newItem = {
-            id,
-            name,
-            quantity,
-            price,
-            total
+        if (cents.length > 2) {
+            const prefix = cents.slice(0, cents.length - 2)
+            cents = cents.replace(prefix, '')
+            dollars += prefix
         }
 
-        newItem[property] = property === 'price' ? Number(value) : value
+        if (cents.length < 2) {
+            const suffix = dollars.slice(dollars.length - (2 - cents.length), dollars.length)
+            dollars = dollars.slice(0, dollars.length - suffix.length)
+            cents = suffix + cents
+        }
 
-        updateItem(newItem)
+        setItemPrice((Number(dollars) || '0') + '.' + cents)
     }
 
     useEffect(() => {
-        setItemTotal(quantity * price)
-    }, [quantity])
+        setItemTotal(Number(itemQuantity) * Number(itemPrice))
+    }, [itemQuantity, itemPrice])
+
+    useEffect(() => {
+        updateItem(prevItems => [...prevItems, {
+            id,
+            name: itemName,
+            quantity: itemQuantity,
+            price: Number(itemPrice),
+            total: Number(itemTotal)
+        }])
+    }, [itemName, itemQuantity, itemPrice, itemTotal])
 
     return (
         <div className={styles.form_item}>
             <label htmlFor={`name-${id}`}>
                 <span>Item Name</span>
-                <input type="text" name={`name-${id}`} id={`name-${id}`} value={name} onChange={e => handleChange(e, 'name')} required />
+                <input type="text" name={`name-${id}`} id={`name-${id}`} value={itemName} onChange={e => setItemName(e.target.value)} required />
             </label>
             <div>
                 <label htmlFor={`quantity-${id}`}>
                     <span>Qty.</span>
-                    <input type="number" name={`quantity-${id}`} id={`quantity-${id}`} value={quantity} min={1} onChange={e => handleChange(e, 'quantity')} required />
+                    <input type="number" name={`quantity-${id}`} id={`quantity-${id}`} value={itemQuantity} min={1} onChange={e => setItemQuantity(e.target.value)} required />
                 </label>
                 <label htmlFor={`price-${id}`}>
                     <span>Price</span>
-                    <input type="text" name={`price-${id}`} id={`price-${id}`} value={formatCurrency(price)} min={1} onChange={e => handleChange(e, 'price')} required />
+                    <input type="text" name={`price-${id}`} id={`price-${id}`} value={itemPrice} min={1} onChange={handlePriceChange} required />
                 </label>
                 <label>
                     <span>Total</span>

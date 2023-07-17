@@ -11,17 +11,14 @@ import { initialAddress, initialItem } from "./initialInfo"
 export default function Form({ hideForm, isVisible, invoice }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const [senderAddress, setSenderAddress] = useState(invoice?.senderAddress || initialAddress)
-    const [clientAddress, setClientAddress] = useState(invoice?.clientAddress || initialAddress)
-    const [clientName, setClientName] = useState(invoice?.clientName || '')
-    const [clientEmail, setClientEmail] = useState(invoice?.clientEmail || '')
-    const [createdAt, setCreatedAt] = useState(invoice?.createdAt || undefined)
-    const [paymentTerms, setPaymentTerms] = useState(invoice?.paymentTerms || 1)
-    const [description, setDescription] = useState(invoice?.description || '')
-    const [items, setItems] = useState(invoice?.items.map(item => ({
-        ...item,
-        id: crypto.randomUUID()
-    })) || [initialItem])
+    const [senderAddress, setSenderAddress] = useState(initialAddress)
+    const [clientAddress, setClientAddress] = useState(initialAddress)
+    const [clientName, setClientName] = useState('')
+    const [clientEmail, setClientEmail] = useState('')
+    const [createdAt, setCreatedAt] = useState(undefined)
+    const [paymentTerms, setPaymentTerms] = useState(1)
+    const [description, setDescription] = useState('')
+    const [items, setItems] = useState([initialItem])
 
     const localStyles = { 
         modal: {
