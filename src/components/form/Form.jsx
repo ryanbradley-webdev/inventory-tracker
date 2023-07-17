@@ -184,7 +184,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             <div className={styles.wrapper}>
                 <BackButton handleClick={closeForm} marginBottom='26px' />
                 {invoice ? (
-                        <h2>Edit <span>#</span>{invoice?.id}</h2>
+                        <h2>Edit <span style={{ color: 'var(--color-text-accent)' }}>#</span>{invoice?.id}</h2>
                     ) : (
                         <h2>New Invoice</h2>
                     )
