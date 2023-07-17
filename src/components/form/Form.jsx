@@ -176,6 +176,12 @@ export default function Form({ hideForm, isVisible, invoice, generateId }) {
                         <input type="text" name="description" id="description" value={description} onChange={e => setDescription(e.target.value)} required />
                     </fieldset>
                     <h3 className={styles.item_header}>Item List</h3>
+                    <div className={styles.item_legend}>
+                        <p>Total</p>
+                        <p>Qty.</p>
+                        <p>Price</p>
+                        <p>Total</p>
+                    </div>
                     <ul>
                         {items.length > 0 && items.map(item => (
                                 <FormItem {...item} key={item.id} removeItem={removeItem} updateItem={updateItem} />

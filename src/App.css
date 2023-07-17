@@ -78,7 +78,14 @@ label {
     width: 100%;
     background-color: var(--color-bg-items);
     margin-bottom: 88px;
+    margin-top: 48px;
     transition: background-color 0.25s ease;
+}
+
+@media screen and (min-width: 534px) {
+    .button.add {
+        margin-top: 16px;
+    }
 }
 
 .button.add:is(:hover, :focus) {
