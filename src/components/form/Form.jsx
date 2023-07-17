@@ -5,10 +5,19 @@ import PlusIcon from "../../assets/PlusIcon"
 import { useSearchParams } from "react-router-dom"
 import BackButton from "../BackButton"
 import styles from './form.module.css'
+import Address from "./Address"
+import { initialAddress } from "./initialInfo"
 
 export default function Form({ hideForm, isVisible, invoice }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
+    const [senderAddress, setSenderAddress] = useState(invoice?.senderAddress || initialAddress)
+    const [clientAddress, setClientAddress] = useState(invoice?.clientAddress || initialAddress)
+    const [clientName, setClientName] = useState(invoice?.clientName || '')
+    const [clientEmail, setClientEmail] = useState(invoice?.clientEmail || '')
+    const [createdAt, setCreatedAt] = useState(invoice?.createdAt || undefined)
+    const [paymentTerms, setPaymentTerms] = useState(invoice?.paymentTerms || 1)
+    const [description, setDescription] = useState(invoice?.description || '')
     const [items, setItems] = useState(invoice?.items.map(item => ({
         ...item,
         id: crypto.randomUUID()
@@ -67,10 +76,24 @@ export default function Form({ hideForm, isVisible, invoice }) {
     }
 
     useEffect(() => {
-        setItems(invoice?.items.map(item => ({
-            ...item,
-            id: crypto.randomUUID()
-        })) || [])
+        if (invoice) {
+            setItems(invoice.items.map(item => ({
+                ...item,
+                id: crypto.randomUUID()
+            })))
+
+            setSenderAddress(invoice.senderAddress)
+
+            setClientAddress(invoice.clientAddress)
+
+            setClientName(invoice.clientName)
+
+            setClientEmail(invoice.clientEmail)
+
+            setCreatedAt(invoice.createdAt)
+
+            setPaymentTerms(invoice.paymentTerms)
+        }
     }, [invoice])
 
     return (
@@ -86,55 +109,34 @@ export default function Form({ hideForm, isVisible, invoice }) {
                 <form action="" onSubmit={handleSubmit}>
                     <fieldset>
                         <h4 style={localStyles.h4}>Bill From</h4>
-                        <label htmlFor="from-address">Street Address</label>
-                        <input type="text" name="from-address" id="from-address" />
-                        <div className={styles.address_info}>
-                            <label htmlFor="from-city">
-                                <span>City</span>
-                                <input type="text" name="from-city" id="from-city" />
-                            </label>
-                            <label htmlFor="from-post-code">
-                                <span>Post Code</span>
-                                <input type="text" name="from-post-code" id="from-post-code" />
-                            </label>
-                            <label htmlFor="from-country">
-                                <span>Country</span>
-                                <input type="text" name="from-country" id="from-country" />
-                            </label>
-                        </div>
+                        <Address
+                            toOrFrom='from'
+                            {...senderAddress}
+                        />
                     </fieldset>
                     <fieldset>
                         <h4 style={localStyles.h4}>Bill To</h4>
                         <label htmlFor="name">Client's Name</label>
-                        <input type="text" name="name" id="name" />
+                        <input type="text" name="name" id="name" value={clientName} required />
                         <label htmlFor="email">Client's Email</label>
-                        <input type="email" name="email" id="email" />
-                        <label htmlFor="to-address">Street Address</label>
-                        <input type="text" name="to-address" id="to-address" />
-                        <div className={styles.address_info}>
-                            <label htmlFor="to-city">
-                                <span>City</span>
-                                <input type="text" name="to-city" id="to-city" />
-                            </label>
-                            <label htmlFor="to-post-code">
-                                <span>Post Code</span>
-                                <input type="text" name="to-post-code" id="to-post-code" />
-                            </label>
-                            <label htmlFor="to-country">
-                                <span>Country</span>
-                                <input type="text" name="to-country" id="to-country" />
-                            </label>
-                        </div>
+                        <input type="email" name="email" id="email" value={clientEmail} required />
+                        <Address
+                            toOrFrom='to'
+                            {...clientAddress}
+                        />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="date">Invoice Date</label>
-                        <input type="date" name="date" id="date" disabled={invoice} />
+                        <input type="date" name="date" id="date" value={createdAt} disabled={invoice} />
                         <label htmlFor="term">Payment Terms</label>
-                        <select name="term" id="term">
-                            <option value=""></option>
+                        <select name="term" id="term" value={paymentTerms}>
+                            <option value="1">Net 1 Day</option>
+                            <option value="7">Net 7 Days</option>
+                            <option value="14">Net 14 Days</option>
+                            <option value="30">Net 30 Days</option>
                         </select>
                         <label htmlFor="description">Project Description</label>
-                        <input type="text" name="description" id="description" />
+                        <input type="text" name="description" id="description" value={description} />
                     </fieldset>
                     <h3 className={styles.item_header}>Item List</h3>
                     <ul>
