@@ -62,12 +62,22 @@ label {
 }
 
 .button.edit {
+    color: var(--color-edit);
     background-color: var(--color-bg-edit);
+}
+
+.button.edit:is(:hover, :focus) {
+    color: var(--color-edit-hover);
+    background-color: var(--color-bg-edit-hover);
 }
 
 .button.delete {
     color: white;
     background-color: var(--color-red-primary);
+}
+
+.button.delete:is(:hover, :focus) {
+    background-color: var(--color-red-secondary);
 }
 
 .button.new:is(:hover, :focus) {
@@ -106,9 +116,13 @@ label {
     background-color: var(--color-purple-primary);
 }
 
+.button.save:is(:hover, :focus),
+.button.paid:is(:hover, :focus) {
+    background-color: var(--color-purple-secondary);
+}
+
 .button.cancel,
-.button.discard,
-.button.edit {
+.button.discard {
     color: var(--color-label);
     background-color: var(--color-bg-items);
 }

@@ -8,7 +8,7 @@
   --color-purple-primary: #7C5DFA;
   --color-purple-secondary: #9277FF;
   --color-red-primary: #EC5757;
-  --color-red-secondary: #9277FF;
+  --color-red-secondary: #FF9797;
   --color-invoice-draft: #373B53;
   --color-bg-draft: #373B530F;
   --color-sidebar-primary: #373B53;
@@ -19,7 +19,10 @@
   --color-bg-menu: #FFFFFF;
   --color-bg-input: #FFFFFF;
   --color-bg-filter: #FFFFFF;
+  --color-edit: #7E88C3;
+  --color-edit-hover: #7e88c3;
   --color-bg-edit: #F9FAFE;
+  --color-bg-edit-hover: #Dfe3fa;
   --color-bg-discard: #F9FAFE;
   --color-bg-items: #F9FAFE;
   --color-bg-amount-due: #373B53;
@@ -46,6 +49,10 @@
   --color-bg-input: #1e2139;
   --color-bg-filter: #252945;
   --color-bg-items: #252945;
+  --color-edit: #DFE3FA;
+  --color-edit-hover: #7e88c3;
+  --color-bg-edit: #252945;
+  --color-bg-edit-hover: #FFFFFF;
   --color-bg-amount-due: #0C0E16;
   --color-input-border: #252945;
   --color-checkbox-background: #1E2139;

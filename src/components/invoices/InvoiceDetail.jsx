@@ -39,8 +39,10 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
     }
 
     function markAsPaid() {
-        invoice.status = 'paid'
-        updateInvoice(invoice)
+        updateInvoice({
+            ...invoice,
+            status: 'paid'
+        })
     }
 
     return (
