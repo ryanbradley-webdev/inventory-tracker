@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import BackButton from '../BackButton'
 import StatusChip from '../StatusChip'
 import DeleteInvoiceModal from './DeleteInvoiceModal'
@@ -45,10 +45,14 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
 
     return (
         <section className={styles.wrapper}>
-            <BackButton handleClick={() => navigate(-1)} />
+            <Link to='/'>
+                <BackButton/>
+            </Link>
             <section className={styles.status}>
-                <span>Status</span>
-                <StatusChip status={status} />
+                <div className={styles.status_icon}>
+                    <span>Status</span>
+                    <StatusChip status={status} />
+                </div>
                 <div className='exclude-mobile'>
                     <InvoiceOptions 
                         openForm={toggleEditInvoiceForm} 

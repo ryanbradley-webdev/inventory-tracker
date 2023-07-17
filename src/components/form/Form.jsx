@@ -96,12 +96,30 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             })),
             total: calculateTotal()
         }
-
-        console.log(draftInvoice)
     }
 
     function handleSubmit(e) {
         e.preventDefault()
+
+        const newInvoice = {
+            id: invoice?.id || generateId(),
+            createdAt,
+            paymentDue: calculateDueDate(createdAt, paymentTerms),
+            description,
+            paymentTerms: Number(paymentTerms),
+            clientName,
+            clientEmail,
+            status: "pending",
+            senderAddress,
+            clientAddress,
+            items: items.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: Number(item.price),
+                total: item.total
+            })),
+            total: calculateTotal()
+        }
     }
 
     function removeItem(id) {
@@ -142,6 +160,22 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             setPaymentTerms(invoice.paymentTerms)
 
             setDescription(invoice.description)
+        } else {
+            setItems([])
+
+            setSenderAddress(initialAddress)
+
+            setClientAddress(initialAddress)
+
+            setClientName('')
+
+            setClientEmail('')
+
+            setCreatedAt(new Date().toISOString().slice(0, 10))
+
+            setPaymentTerms(1)
+
+            setDescription('')
         }
     }, [invoice])
 

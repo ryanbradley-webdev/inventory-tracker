@@ -188,6 +188,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+}
+
+.status_icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media screen and (min-width: 701px) {
+    .status_icon {
+        justify-content: flex-start;
+        gap: 20px;
+    }
 }
 
 .content {
@@ -217,6 +232,17 @@
     margin-bottom: 31px;
 }
 
+@media screen and (min-width: 616px) {
+    .invoice_info_address {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .address {
+        text-align: right;
+    }
+}
+
 .invoice_client_info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -235,6 +261,15 @@
 
 .client_email {
     grid-column: 1 / span 2;
+}
+
+@media screen and (min-width: 616px) {
+    .invoice_client_info {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .client_email {
+        grid-column: 3;
+    }
 }
 
 .invoice_items {
@@ -294,6 +329,20 @@
     padding-block: 21px;
 }
 
+@media screen and (min-width: 481px) {
+    .btn_div {
+        margin-inline: -48px;
+        margin-bottom: -51px;
+    }
+}
+
+.status .btn_div {
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    width: max-content;
+}
+
 .delete_modal {
     position: fixed;
     height: calc(100% - 72px);
@@ -303,6 +352,13 @@
     background: #00000099;
     place-items: center;
     padding-inline: 24px;
+}
+
+@media screen and (min-width: 1200px) {
+    .delete_modal {
+        top: 0;
+        left: 103px;
+    }
 }
 
 .delete_modal_form {
