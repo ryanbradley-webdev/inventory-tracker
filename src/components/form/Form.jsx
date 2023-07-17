@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom"
 import BackButton from "../BackButton"
 import styles from './form.module.css'
 import Address from "./Address"
-import { initialAddress } from "./initialInfo"
+import { initialAddress, initialItem } from "./initialInfo"
 
 export default function Form({ hideForm, isVisible, invoice }) {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -21,7 +21,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
     const [items, setItems] = useState(invoice?.items.map(item => ({
         ...item,
         id: crypto.randomUUID()
-    })) || [])
+    })) || [initialItem])
 
     const localStyles = { 
         modal: {
@@ -75,6 +75,10 @@ export default function Form({ hideForm, isVisible, invoice }) {
         }))
     }
 
+    function addItem() {
+        setItems(prevItems => [...prevItems, {...initialItem, id: crypto.randomUUID()}])
+    }
+
     useEffect(() => {
         if (invoice) {
             setItems(invoice.items.map(item => ({
@@ -93,6 +97,8 @@ export default function Form({ hideForm, isVisible, invoice }) {
             setCreatedAt(invoice.createdAt)
 
             setPaymentTerms(invoice.paymentTerms)
+
+            setDescription(invoice.description)
         }
     }, [invoice])
 
@@ -112,31 +118,33 @@ export default function Form({ hideForm, isVisible, invoice }) {
                         <Address
                             toOrFrom='from'
                             {...senderAddress}
+                            setAddress={setSenderAddress}
                         />
                     </fieldset>
                     <fieldset>
                         <h4 style={localStyles.h4}>Bill To</h4>
                         <label htmlFor="name">Client's Name</label>
-                        <input type="text" name="name" id="name" value={clientName} required />
+                        <input type="text" name="name" id="name" value={clientName} onChange={e => setClientName(e.target.value)} required />
                         <label htmlFor="email">Client's Email</label>
-                        <input type="email" name="email" id="email" value={clientEmail} required />
+                        <input type="email" name="email" id="email" value={clientEmail} onChange={e => setClientEmail(e.target.value)} required />
                         <Address
                             toOrFrom='to'
                             {...clientAddress}
+                            setAddress={setClientAddress}
                         />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="date">Invoice Date</label>
-                        <input type="date" name="date" id="date" value={createdAt} disabled={invoice} />
+                        <input type="date" name="date" id="date" defaultValue={createdAt} onChange={e => setCreatedAt(e.target.value)} disabled={invoice} />
                         <label htmlFor="term">Payment Terms</label>
-                        <select name="term" id="term" value={paymentTerms}>
+                        <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
                             <option value="1">Net 1 Day</option>
                             <option value="7">Net 7 Days</option>
                             <option value="14">Net 14 Days</option>
                             <option value="30">Net 30 Days</option>
                         </select>
                         <label htmlFor="description">Project Description</label>
-                        <input type="text" name="description" id="description" value={description} />
+                        <input type="text" name="description" id="description" value={description} onChange={e => setDescription(e.target.value)} required />
                     </fieldset>
                     <h3 className={styles.item_header}>Item List</h3>
                     <ul>
@@ -144,7 +152,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
                                 <FormItem {...item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
                             ))}
                     </ul>
-                    <Button variant='add'>
+                    <Button variant='add' onClick={addItem}>
                         <PlusIcon />
                         <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
                     </Button>
