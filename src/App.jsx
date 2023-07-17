@@ -6,7 +6,6 @@ import './App.css'
 import InvoiceDetail from './components/invoices/InvoiceDetail'
 import sampleData from './sampleData/data.json'
 import Form from './components/form/Form'
-import { letterArr } from '../lib/letterArr'
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -16,18 +15,6 @@ export default function App() {
   const [invoices, setInvoices] = useState(sampleData)
   const [editInvoiceVisible, setEditInvoiceVisible] = useState(false)
   const [selectedInvoice, setSelectedInvoice] = useState(null)
-
-  function generateId() {
-      let newId = letterArr[Math.floor(Math.random() * 26)]
-
-      newId += letterArr[Math.floor(Math.random() * 26)]
-
-      newId += Math.floor(Math.random() * 10000)
-
-      console.log(newId)
-
-      return invoices.map(invoice => invoice.id).includes(newId) ? generateId() : newId
-  }
 
   function updateInvoice(updatedInvoice) {
     setInvoices(invoices.map(invoice => {
@@ -70,13 +57,12 @@ export default function App() {
                   deleteInvoice={deleteInvoice} 
                   updateInvoice={updateInvoice}
                   toggleEditInvoiceForm={toggleEditInvoiceForm}
-                  generateId={generateId}
                 />
               }
             />
           </Route>
         </Routes>
-        <Form isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
+        <Form invoiceIds={invoices?.map(invoice => invoice.id)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
       </main>
     </>
   )

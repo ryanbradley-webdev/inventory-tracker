@@ -7,8 +7,10 @@ import BackButton from "../BackButton"
 import styles from './form.module.css'
 import Address from "./Address"
 import { initialAddress, initialItem } from "./initialInfo"
+import { calculateDueDate } from "../../../lib/calculateDueDate"
+import { letterArr } from '../../../lib/letterArr'
 
-export default function Form({ hideForm, isVisible, invoice, generateId }) {
+export default function Form({ invoiceIds, hideForm, isVisible, invoice, generateId }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const [senderAddress, setSenderAddress] = useState(initialAddress)
@@ -19,6 +21,16 @@ export default function Form({ hideForm, isVisible, invoice, generateId }) {
     const [paymentTerms, setPaymentTerms] = useState(1)
     const [description, setDescription] = useState('')
     const [items, setItems] = useState([initialItem])
+
+    function generateId() {
+        let newId = letterArr[Math.floor(Math.random() * 26)]
+  
+        newId += letterArr[Math.floor(Math.random() * 26)]
+  
+        newId += Math.floor(Math.random() * 10000)
+  
+        return invoiceIds?.includes(newId) ? generateId() : newId
+    }
 
     const localStyles = { 
         modal: {
@@ -66,9 +78,9 @@ export default function Form({ hideForm, isVisible, invoice, generateId }) {
 
     function saveDraft() {
         const draftInvoice = {
-            id: invoice.id || generateId(),
+            id: invoice?.id || generateId(),
             createdAt,
-            paymentDue: "2021-08-19",
+            paymentDue: calculateDueDate(createdAt, paymentTerms),
             description,
             paymentTerms: Number(paymentTerms),
             clientName,
@@ -84,6 +96,8 @@ export default function Form({ hideForm, isVisible, invoice, generateId }) {
             })),
             total: calculateTotal()
         }
+
+        console.log(draftInvoice)
     }
 
     function handleSubmit(e) {
