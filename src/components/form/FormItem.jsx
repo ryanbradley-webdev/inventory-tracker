@@ -15,7 +15,7 @@ export default function FormItem({
     const [itemName, setItemName] = useState(name)
     const [itemQuantity, setItemQuantity] = useState(quantity)
     const [itemPrice, setItemPrice] = useState(price ? formatCurrency(price) : '0.00')
-    const [itemTotal, setItemTotal] = useState(total || 0)
+    const [itemTotal, setItemTotal] = useState(total)
 
     function handlePriceChange(e) {
         let [dollars, cents] = e.target.value.split('.')
@@ -36,7 +36,9 @@ export default function FormItem({
     }
 
     useEffect(() => {
-        setItemTotal(Number(itemQuantity) * Number(itemPrice))
+        const newTotal = Number(itemQuantity) * Number(itemPrice.replaceAll(',', ''))
+
+        setItemTotal(newTotal)
     }, [itemQuantity, itemPrice])
 
     useEffect(() => {

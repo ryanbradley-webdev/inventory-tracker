@@ -8,14 +8,14 @@ import styles from './form.module.css'
 import Address from "./Address"
 import { initialAddress, initialItem } from "./initialInfo"
 
-export default function Form({ hideForm, isVisible, invoice }) {
+export default function Form({ hideForm, isVisible, invoice, generateId }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const [senderAddress, setSenderAddress] = useState(initialAddress)
     const [clientAddress, setClientAddress] = useState(initialAddress)
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
-    const [createdAt, setCreatedAt] = useState(undefined)
+    const [createdAt, setCreatedAt] = useState(new Date().toISOString().slice(0, 10))
     const [paymentTerms, setPaymentTerms] = useState(1)
     const [description, setDescription] = useState('')
     const [items, setItems] = useState([initialItem])
@@ -52,6 +52,38 @@ export default function Form({ hideForm, isVisible, invoice }) {
     function closeForm() {
         setSearchParams()
         hideForm()
+    }
+
+    function calculateTotal() {
+        let total = 0
+
+        items.forEach(item => {
+            total += item.total
+        })
+
+        return total
+    }
+
+    function saveDraft() {
+        const draftInvoice = {
+            id: invoice.id || generateId(),
+            createdAt,
+            paymentDue: "2021-08-19",
+            description,
+            paymentTerms: Number(paymentTerms),
+            clientName,
+            clientEmail,
+            status: "draft",
+            senderAddress,
+            clientAddress,
+            items: items.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: Number(item.price),
+                total: item.total
+            })),
+            total: calculateTotal()
+        }
     }
 
     function handleSubmit(e) {
@@ -132,7 +164,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
                     </fieldset>
                     <fieldset>
                         <label htmlFor="date">Invoice Date</label>
-                        <input type="date" name="date" id="date" defaultValue={createdAt} onChange={e => setCreatedAt(e.target.value)} disabled={invoice} />
+                        <input type="date" name="date" id="date" value={createdAt} onChange={e => setCreatedAt(e.target.value)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
                         <label htmlFor="term">Payment Terms</label>
                         <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
                             <option value="1">Net 1 Day</option>
@@ -157,7 +189,7 @@ export default function Form({ hideForm, isVisible, invoice }) {
                         <Button variant={invoice ? 'cancel' : 'discard'}>
                             {invoice ? 'Cancel' : 'Discard'}
                         </Button>
-                        {!invoice && <Button variant='draft'>
+                        {!invoice && <Button variant='draft' onClick={saveDraft}>
                             Save As Draft
                         </Button>}
                         <Button variant='save' submit>
