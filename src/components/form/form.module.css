@@ -1,8 +1,19 @@
+.modal {
+    display: none;
+    position: absolute; 
+    inset: 0;
+    bottom: auto;
+    background: #00000099;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
 .wrapper {
     max-width: 616px;
     background: var(--color-bg);
     padding-inline: 24px;
     padding-block: 33px;
+    transition: transform 0.3s ease-in-out;
 }
 
 @media screen and (min-width: 616px) {

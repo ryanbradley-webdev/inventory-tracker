@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Button from "../Button"
 import FormItem from "./FormItem"
 import PlusIcon from "../../assets/PlusIcon"
@@ -22,6 +22,9 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
     const [description, setDescription] = useState('')
     const [items, setItems] = useState([initialItem])
 
+    const modalRef = useRef(null)
+    const wrapperRef = useRef(null)
+
     function generateId() {
         let newId = letterArr[Math.floor(Math.random() * 26)]
   
@@ -32,15 +35,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         return invoiceIds?.includes(newId) ? generateId() : newId
     }
 
-    const localStyles = { 
-        modal: {
-            position: 'absolute', 
-            inset: '0',
-            bottom: 'auto', 
-            transform: isVisible ? '' : 'translateX(-100%)',
-            transition: 'transform 0.3s ease-in-out',
-            background: '#00000099'
-        },
+    const localStyles = {
         button: {
             outline: 'transparent',
             background: 'none',
@@ -179,9 +174,26 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         }
     }, [invoice])
 
+    useEffect(() => {
+        if (isVisible) {
+            modalRef.current.style.display = 'block'
+            setTimeout(() => {
+                modalRef.current.style.opacity = '1'
+                wrapperRef.current.style.transform = 'translateX(0)'
+            }, 100)
+        } else {
+            wrapperRef.current.style.transform = 'translateX(-616px)'
+            console.log(wrapperRef.current.style.transform)
+            modalRef.current.style.opacity = '0'
+            setTimeout(() => {
+                modalRef.current.style.display = 'none'
+            }, 300)
+        }
+    }, [isVisible])
+
     return (
-        <div style={localStyles.modal}>
-            <div className={styles.wrapper}>
+        <div className={styles.modal} ref={modalRef}>
+            <div className={styles.wrapper} ref={wrapperRef}>
                 <BackButton handleClick={closeForm} marginBottom='26px' />
                 {invoice ? (
                         <h2>Edit <span style={{ color: 'var(--color-text-accent)' }}>#</span>{invoice?.id}</h2>
