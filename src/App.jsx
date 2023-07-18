@@ -7,6 +7,7 @@ import InvoiceDetail from './components/invoices/InvoiceDetail'
 import sampleData from './sampleData/data.json'
 import Form from './components/form/Form'
 import { getInvoices } from '../lib/getInvoices'
+import { deleteInvoiceById } from '../lib/deleteInvoiceById'
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -25,7 +26,11 @@ export default function App() {
   }
 
   function deleteInvoice(id) {
-    setInvoices(invoices.filter(invoice => invoice.id.toLowerCase() !== id.toLowerCase()))
+    setInvoices(invoices.filter(invoice => invoice.invoiceId.toLowerCase() !== id.toLowerCase()))
+
+    deleteInvoiceById(id)
+      .then(res => console.log(res))
+      .catch(e => console.log(e))
   }
 
   function toggleEditInvoiceForm() {

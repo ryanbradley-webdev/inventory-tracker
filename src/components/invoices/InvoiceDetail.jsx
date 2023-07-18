@@ -61,7 +61,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
     }
 
     function handleDelete() {
-        deleteInvoice(id)
+        deleteInvoice(invoiceId)
         navigate('/')
     }
 
