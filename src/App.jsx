@@ -6,13 +6,14 @@ import './App.css'
 import InvoiceDetail from './components/invoices/InvoiceDetail'
 import sampleData from './sampleData/data.json'
 import Form from './components/form/Form'
+import { getInvoices } from '../lib/getInvoices'
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { pathname } = useResolvedPath()
 
-  const [invoices, setInvoices] = useState(sampleData)
+  const [invoices, setInvoices] = useState([])
   const [editInvoiceVisible, setEditInvoiceVisible] = useState(false)
   const [selectedInvoice, setSelectedInvoice] = useState(null)
 
@@ -42,6 +43,20 @@ export default function App() {
       setSelectedInvoice(null)
     }
   }, [searchParams])
+
+  useEffect(() => {
+    getInvoices()
+      .then(data => {
+        if (data === 'Failed to fetch') {
+          setInvoices([])
+        } else {
+          setInvoices(data)
+        }
+      })
+      .catch(e => {
+        setInvoices([])
+      })
+  }, [])
 
   return (
     <>

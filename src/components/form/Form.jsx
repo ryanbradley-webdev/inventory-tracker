@@ -73,7 +73,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
 
     function saveDraft() {
         const draftInvoice = {
-            id: invoice?.id || generateId(),
+            invoiceId: invoice?.invoiceId || generateId(),
             createdAt,
             paymentDue: calculateDueDate(createdAt, paymentTerms),
             description,
@@ -97,7 +97,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         e.preventDefault()
 
         const newInvoice = {
-            id: invoice?.id || generateId(),
+            invoiceId: invoice?.invoiceId || generateId(),
             createdAt,
             paymentDue: calculateDueDate(createdAt, paymentTerms),
             description,
@@ -183,7 +183,6 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             }, 100)
         } else {
             wrapperRef.current.style.transform = 'translateX(-616px)'
-            console.log(wrapperRef.current.style.transform)
             modalRef.current.style.opacity = '0'
             setTimeout(() => {
                 modalRef.current.style.display = 'none'

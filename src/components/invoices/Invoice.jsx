@@ -5,10 +5,10 @@ import styles from './invoices.module.css'
 
 export default function Invoice({ invoice, selectInvoice }) {
     return (
-        <div className={styles.card} onClick={() => selectInvoice(invoice.id.toLowerCase())}>
+        <div className={styles.card} onClick={() => selectInvoice(invoice.invoiceId.toLowerCase())}>
             <div className={styles.card_top}>
                 <span className={styles.bold_text}>
-                    <span style={{ color: 'var(--color-text-accent)'}}>#</span>{invoice.id}
+                    <span style={{ color: 'var(--color-text-accent)'}}>#</span>{invoice.invoiceId}
                 </span>
                 <span className={`${styles.accent_text} exclude-mobile`}>Due {formatDate(invoice.paymentDue)}</span>
                 <span className={styles.accent_text}>{invoice.clientName}</span>

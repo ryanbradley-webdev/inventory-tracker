@@ -12,10 +12,11 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
 
-    const invoice = invoices.find(invoice => invoice.id.toLowerCase() == id.toLowerCase())
+    const invoice = invoices.find(invoice => invoice.invoiceId.toLowerCase() == id.toLowerCase())
 
     const { 
-        status, 
+        invoiceId,
+        status,
         description, 
         senderAddress, 
         clientAddress, 
@@ -66,7 +67,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
             <section className={`${styles.content} ${styles.accent_text}`}>
                 <div className={styles.invoice_info_address}>
                     <div className={styles.invoice_info}>
-                        <h5 className={styles.bold_text}><span>#</span>{invoice.id}</h5>
+                        <h5 className={styles.bold_text}><span>#</span>{invoiceId}</h5>
                         <p>{description}</p>
                     </div>
                     <div className={styles.address}>

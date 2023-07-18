@@ -41,6 +41,10 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
 
     }, [filter])
 
+    useEffect(() => {
+        setFilteredInvoices(invoices)
+    }, [invoices])
+
     return (
         <section className={styles.wrapper}>
             <div className={styles.header}>
@@ -73,7 +77,7 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
             {
                 filteredInvoices.length === 0 
                 ? <IllustrationEmpty />
-                : filteredInvoices.map(invoice => <Invoice invoice={invoice} key={invoice.id} selectInvoice={selectInvoice} />)
+                : filteredInvoices.map(invoice => <Invoice invoice={invoice} key={invoice.invoiceId} selectInvoice={selectInvoice} />)
             }
         </section>
     )
