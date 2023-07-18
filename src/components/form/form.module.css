@@ -191,3 +191,15 @@
         display: none;
     }
 }
+
+.red_div {
+    margin-bottom: 24px;
+}
+
+.red_text {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-red-primary);
+    letter-spacing: -0.21px;
+    line-height: 15px;
+}

@@ -48,7 +48,7 @@ label {
     font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.25px;
-    padding-inline: 24px;
+    padding-inline: 18px;
 }
 
 .button.new {
@@ -87,7 +87,7 @@ label {
 .button.add {
     width: 100%;
     background-color: var(--color-bg-items);
-    margin-bottom: 88px;
+    margin-bottom: 33px;
     margin-top: 48px;
     transition: background-color 0.25s ease;
 }
@@ -144,6 +144,7 @@ fieldset {
 }
 
 label {
+    position: relative;
     margin-top: 24px;
     color: var(--color-label);
     font-size: 13px;
@@ -151,7 +152,6 @@ label {
     letter-spacing: -0.1px;
 }
 
-fieldset > label,
 label > span {
     display: block;
     margin-bottom: 9px;
@@ -177,4 +177,26 @@ input:is(:hover, :focus),
 select:is(:hover, :focus) {
     outline: none;
     border: 1px solid var(--color-purple-primary);
+}
+
+option {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 48px;
+}
+
+input.invalid {
+    border-color: var(--color-red-primary);
+}
+
+label:has(input.invalid)::after {
+    content: 'can\'t be empty';
+    position: absolute;
+    top: 0;
+    right: 17px;
+    color: var(--color-red-primary);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.21px;
+    line-height: 15px;
 }

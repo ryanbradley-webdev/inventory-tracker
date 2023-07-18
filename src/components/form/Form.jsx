@@ -21,10 +21,14 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
     const [createdAt, setCreatedAt] = useState(new Date().toISOString().slice(0, 10))
     const [paymentTerms, setPaymentTerms] = useState(1)
     const [description, setDescription] = useState('')
-    const [items, setItems] = useState([initialItem])
+    const [items, setItems] = useState([])
+
+    const [formValid, setFormValid] = useState(true)
+    const [itemsValid, setItemsValid] = useState(true)
 
     const modalRef = useRef(null)
     const wrapperRef = useRef(null)
+    const formRef = useRef(null)
 
     function generateId() {
         let newId = letterArr[Math.floor(Math.random() * 26)]
@@ -102,8 +106,37 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             })
     }
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    function handleChange(e, setState) {
+        setState(e.target.value)
+        validateField(e.target)
+    }
+
+    function validateField(field) {
+        if (!field.value) {
+            field.classList.add('invalid')
+            return false
+        } else {
+            field.classList.remove('invalid')
+            return true
+        }
+    }
+
+    function validateForm() {
+        const fields = formRef.current.querySelectorAll('input')
+        let isValid = true
+
+        fields.forEach(field => {
+            if (!validateField(field)) {
+                isValid = false
+            }
+        })
+
+        setFormValid(isValid)
+        setItemsValid(items.length > 0)
+    }
+
+    function handleSubmit() {
+        if (!validateForm()) return
 
         const newInvoice = {
             invoiceId: invoice?.invoiceId || generateId(),
@@ -217,30 +250,36 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
                         <h2>New Invoice</h2>
                     )
                 }
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" onSubmit={e => e.preventDefault()} ref={formRef}>
                     <fieldset>
                         <h4 style={localStyles.h4}>Bill From</h4>
                         <Address
                             toOrFrom='from'
                             {...senderAddress}
                             setAddress={setSenderAddress}
+                            validateField={validateField}
                         />
                     </fieldset>
                     <fieldset>
                         <h4 style={localStyles.h4}>Bill To</h4>
-                        <label htmlFor="name">Client's Name</label>
-                        <input type="text" name="name" id="name" value={clientName} onChange={e => setClientName(e.target.value)} required />
-                        <label htmlFor="email">Client's Email</label>
-                        <input type="email" name="email" id="email" value={clientEmail} onChange={e => setClientEmail(e.target.value)} required />
+                        <label htmlFor="name">
+                            <span>Client's Name</span>
+                            <input type="text" name="name" id="name" value={clientName} onChange={e => handleChange(e, setClientName)} required />
+                        </label>
+                        <label htmlFor="email">
+                            <span>Client's Email</span>
+                            <input type="email" name="email" id="email" value={clientEmail} onChange={e => handleChange(e, setClientEmail)} required />
+                        </label>
                         <Address
                             toOrFrom='to'
                             {...clientAddress}
                             setAddress={setClientAddress}
+                            validateField={validateField}
                         />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="date">Invoice Date</label>
-                        <input type="date" name="date" id="date" value={createdAt} onChange={e => setCreatedAt(e.target.value)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
+                        <input type="date" name="date" id="date" value={createdAt} onChange={e => handleChange(e, setCreatedAt)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
                         <label htmlFor="term">Payment Terms</label>
                         <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
                             <option value="1">Net 1 Day</option>
@@ -248,8 +287,10 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
                             <option value="14">Net 14 Days</option>
                             <option value="30">Net 30 Days</option>
                         </select>
-                        <label htmlFor="description">Project Description</label>
-                        <input type="text" name="description" id="description" value={description} onChange={e => setDescription(e.target.value)} required />
+                        <label htmlFor="description">
+                            <span>Project Description</span>
+                            <input type="text" name="description" id="description" value={description} onChange={e => handleChange(e, setDescription)} required />
+                        </label>
                     </fieldset>
                     <h3 className={styles.item_header}>Item List</h3>
                     <div className={styles.item_legend}>
@@ -267,14 +308,18 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
                         <PlusIcon />
                         <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
                     </Button>
+                    <div className={styles.red_div}>
+                        {!formValid && <p className={styles.red_text}>- All fields must be added</p>}
+                        {!itemsValid && <p className={styles.red_text}>- An item must be added</p>}
+                    </div>
                     <div className={styles.btn_div}>
-                        <Button variant={invoice ? 'cancel' : 'discard'}>
+                        <Button variant={invoice ? 'cancel' : 'discard'} onClick={closeForm}>
                             {invoice ? 'Cancel' : 'Discard'}
                         </Button>
                         {(!invoice || invoice.status === 'draft') && <Button variant='draft' onClick={saveDraft}>
                             Save As Draft
                         </Button>}
-                        <Button variant='save' submit>
+                        <Button variant='save' onClick={handleSubmit}>
                             Save {invoice?.status === 'pending' ? 'Changes' : '& Send'}
                         </Button>
                     </div>
