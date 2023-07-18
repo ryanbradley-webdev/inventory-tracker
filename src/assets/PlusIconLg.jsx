@@ -8,7 +8,7 @@ export default function PlusIconLg() {
         height: '2rem',
         backgroundColor: '#FFFFFF',
         borderRadius: '1rem',
-        marginLeft: '-15px'
+        marginLeft: '-9px'
     }
 
     return (

@@ -179,12 +179,6 @@ select:is(:hover, :focus) {
     border: 1px solid var(--color-purple-primary);
 }
 
-option {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: 48px;
-}
-
 input.invalid {
     border-color: var(--color-red-primary);
 }
