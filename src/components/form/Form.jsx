@@ -9,6 +9,7 @@ import Address from "./Address"
 import { initialAddress, initialItem } from "./initialInfo"
 import { calculateDueDate } from "../../../lib/calculateDueDate"
 import { letterArr } from '../../../lib/letterArr'
+import { saveInvoice } from "../../../lib/saveInvoice"
 
 export default function Form({ invoiceIds, hideForm, isVisible, invoice, generateId }) {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -91,6 +92,14 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             })),
             total: calculateTotal()
         }
+
+        saveInvoice(draftInvoice)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+                console.log(res)
+            })
     }
 
     function handleSubmit(e) {
@@ -115,6 +124,14 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
             })),
             total: calculateTotal()
         }
+
+        saveInvoice(newInvoice)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+                console.log(res)
+            })
     }
 
     function removeItem(id) {
@@ -254,11 +271,11 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
                         <Button variant={invoice ? 'cancel' : 'discard'}>
                             {invoice ? 'Cancel' : 'Discard'}
                         </Button>
-                        {!invoice && <Button variant='draft' onClick={saveDraft}>
+                        {(!invoice || invoice.status === 'draft') && <Button variant='draft' onClick={saveDraft}>
                             Save As Draft
                         </Button>}
                         <Button variant='save' submit>
-                            Save {invoice ? 'Changes' : '& Send'}
+                            Save {invoice?.status === 'pending' ? 'Changes' : '& Send'}
                         </Button>
                     </div>
                 </form>

@@ -19,7 +19,7 @@ export default function App() {
 
   function updateInvoice(updatedInvoice) {
     setInvoices(invoices.map(invoice => {
-      if (invoice.id === updatedInvoice.id) return updatedInvoice
+      if (invoice.invoiceId === updatedInvoice.invoiceId) return updatedInvoice
       return invoice
     }))
   }
@@ -36,7 +36,7 @@ export default function App() {
     if (searchParams.has('edit') && searchParams.get('edit')) {
       const id = pathname.replace('/', '')
 
-      const targetInvoice = invoices.find(invoice => invoice.id.toLowerCase() === id.toLowerCase())
+      const targetInvoice = invoices.find(invoice => invoice.invoiceId.toLowerCase() === id.toLowerCase())
 
       setSelectedInvoice(targetInvoice)
     } else {
@@ -77,7 +77,7 @@ export default function App() {
             />
           </Route>
         </Routes>
-        <Form invoiceIds={invoices?.map(invoice => invoice.id)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
+        <Form invoiceIds={invoices?.map(invoice => invoice.invoiceId)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
       </main>
     </>
   )

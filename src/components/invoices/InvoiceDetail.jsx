@@ -6,6 +6,32 @@ import DeleteInvoiceModal from './DeleteInvoiceModal'
 import InvoiceOptions from './InvoiceOptions'
 import { formatCurrency } from '../../../lib/formatCurrency'
 import styles from './invoices.module.css'
+import { markInvoicePaid } from '../../../lib/markInvoicePaid'
+
+const invoiceNotFound = {
+    invoiceId: "",
+    createdAt: "",
+    paymentDue: "",
+    description: "",
+    paymentTerms: 1,
+    clientName: "",
+    clientEmail: "",
+    status: "draft",
+    senderAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: ""
+    },
+    clientAddress: {
+      street: "",
+      city: "",
+      postCode: "",
+      country: ""
+    },
+    items: [],
+    total: 0
+}
 
 export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, toggleEditInvoiceForm }) {
     const { id } = useParams()
@@ -26,7 +52,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
         clientEmail, 
         items, 
         total 
-    } = invoice
+    } = invoice || invoiceNotFound
 
     const navigate = useNavigate()
 
@@ -44,6 +70,10 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
             ...invoice,
             status: 'paid'
         })
+
+        markInvoicePaid(invoiceId)
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
     }
 
     return (
@@ -122,11 +152,11 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                     openForm={toggleEditInvoiceForm} 
                     handleDelete={toggleDeleteModal} 
                     markAsPaid={markAsPaid} 
-                    id={invoice.id}
+                    id={invoiceId}
                 />
             </div>
             <DeleteInvoiceModal 
-                id={invoice.id} 
+                id={invoiceId} 
                 isVisible={deleteModalVisible} 
                 closeModal={toggleDeleteModal} 
                 deleteInvoice={handleDelete} 
