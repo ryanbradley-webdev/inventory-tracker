@@ -133,10 +133,14 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
 
         setFormValid(isValid)
         setItemsValid(items.length > 0)
+
+        return isValid
     }
 
     function handleSubmit() {
-        if (!validateForm()) return
+        const isFormValid = validateForm()
+
+        if (!isFormValid) return
 
         const newInvoice = {
             invoiceId: invoice?.invoiceId || generateId(),
