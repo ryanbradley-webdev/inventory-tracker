@@ -42,13 +42,13 @@ export default function FormItem({
     }, [itemQuantity, itemPrice])
 
     useEffect(() => {
-        updateItem(prevItems => [...prevItems, {
+        updateItem({
             id,
             name: itemName,
             quantity: itemQuantity,
             price: Number(itemPrice),
             total: Number(itemTotal)
-        }])
+        })
     }, [itemName, itemQuantity, itemPrice, itemTotal])
 
     return (
