@@ -1,0 +1,18 @@
+.modal {
+    position: fixed;
+    height: calc(100% - 72px);
+    width: 100%;
+    top: 72px;
+    left: 0;
+    background: #00000099;
+    place-items: center;
+    padding-inline: 24px;
+}
+
+@media screen and (min-width: 1200px) {
+    .modal {
+        top: 0;
+        left: 103px;
+        height: 100%;
+    }
+}

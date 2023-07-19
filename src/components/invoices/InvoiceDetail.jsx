@@ -7,6 +7,8 @@ import InvoiceOptions from './InvoiceOptions'
 import { formatCurrency } from '../../../lib/formatCurrency'
 import styles from './invoices.module.css'
 import { markInvoicePaid } from '../../../lib/markInvoicePaid'
+import Modal from '../modal/Modal'
+import Button from '../Button'
 
 const invoiceNotFound = {
     invoiceId: "",
@@ -155,12 +157,20 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
                     id={invoiceId}
                 />
             </div>
-            <DeleteInvoiceModal 
-                id={invoiceId} 
-                isVisible={deleteModalVisible} 
-                closeModal={toggleDeleteModal} 
-                deleteInvoice={handleDelete} 
-            />
+            <Modal isVisible={deleteModalVisible}>
+                <form action="" method='dialog' className={styles.delete_modal_form}>
+                    <h3>Confirm Deletion</h3>
+                    <p>Are you sure you want to delete invoice #{invoiceId}? This action cannot be undone.</p>
+                    <div>
+                        <Button onClick={toggleDeleteModal} variant='cancel'>
+                            Cancel
+                        </Button>
+                        <Button onClick={handleDelete} variant='delete'>
+                            Delete
+                        </Button>
+                    </div>
+                </form>
+            </Modal>
         </section>
     )
 }
