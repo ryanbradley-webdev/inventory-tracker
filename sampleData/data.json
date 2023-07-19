@@ -68,7 +68,7 @@
     "total": 556.00
   },
   {
-    "id": "RG0314",
+    "invoiceId": "RG0314",
     "createdAt": "2021-09-24",
     "paymentDue": "2021-10-01",
     "description": "Website Redesign",
@@ -99,7 +99,7 @@
     "total": 14002.33
   },
   {
-    "id": "RT2080",
+    "invoiceId": "RT2080",
     "createdAt": "2021-10-11",
     "paymentDue": "2021-10-12",
     "description": "Logo Concept",
@@ -130,7 +130,7 @@
     "total": 102.04
   },
   {
-    "id": "AA1449",
+    "invoiceId": "AA1449",
     "createdAt": "2021-10-7",
     "paymentDue": "2021-10-14",
     "description": "Re-branding",
@@ -167,7 +167,7 @@
     "total": 4032.33
   },
   {
-    "id": "TY9141",
+    "invoiceId": "TY9141",
     "createdAt": "2021-10-01",
     "paymentDue": "2021-10-31",
     "description": "Landing Page Design",
@@ -198,7 +198,7 @@
     "total": 6155.91
   },
   {
-    "id": "FV2353",
+    "invoiceId": "FV2353",
     "createdAt": "2021-11-05",
     "paymentDue": "2021-11-12",
     "description": "Logo Re-design",
