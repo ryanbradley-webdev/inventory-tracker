@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import Button from "../Button"
 import FormItem from "./FormItem"
 import PlusIcon from "../../assets/PlusIcon"
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import BackButton from "../BackButton"
 import styles from './form.module.css'
 import Address from "./Address"
@@ -10,9 +10,12 @@ import { initialAddress, initialItem } from "./initialInfo"
 import { calculateDueDate } from "../../../lib/calculateDueDate"
 import { letterArr } from '../../../lib/letterArr'
 import { saveInvoice } from "../../../lib/saveInvoice"
+import Modal from "../modal/Modal"
 
 export default function Form({ invoiceIds, hideForm, isVisible, invoice, generateId }) {
     const [searchParams, setSearchParams] = useSearchParams()
+
+    const navigate = useNavigate()
 
     const [senderAddress, setSenderAddress] = useState(initialAddress)
     const [clientAddress, setClientAddress] = useState(initialAddress)
@@ -25,6 +28,8 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
 
     const [formValid, setFormValid] = useState(true)
     const [itemsValid, setItemsValid] = useState(true)
+
+    const [successModalVisible, setSuccessModalVisible] = useState(false)
 
     const modalRef = useRef(null)
     const wrapperRef = useRef(null)
@@ -98,8 +103,8 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         }
 
         saveInvoice(draftInvoice)
-            .then(res => {
-                console.log(res)
+            .then(() => {
+                setSuccessModalVisible(true)
             })
             .catch(res => {
                 console.log(res)
@@ -163,8 +168,8 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         }
 
         saveInvoice(newInvoice)
-            .then(res => {
-                console.log(res)
+            .then(() => {
+                setSuccessModalVisible(true)
             })
             .catch(res => {
                 console.log(res)
@@ -187,6 +192,16 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
 
     function addItem() {
         setItems(prevItems => [...prevItems, {...initialItem, id: crypto.randomUUID()}])
+    }
+    
+    function handleClose() {
+        setSuccessModalVisible(false)
+        closeForm()
+    }
+
+    function handleBack() {
+        handleClose()
+        navigate('/')
     }
 
     useEffect(() => {
@@ -245,90 +260,105 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
     }, [isVisible])
 
     return (
-        <div className={styles.modal} ref={modalRef}>
-            <div className={styles.wrapper} ref={wrapperRef}>
-                <BackButton handleClick={closeForm} marginBottom='26px' />
-                {invoice ? (
-                        <h2>Edit <span style={{ color: 'var(--color-text-accent)' }}>#</span>{invoice?.id}</h2>
-                    ) : (
-                        <h2>New Invoice</h2>
-                    )
-                }
-                <form action="" onSubmit={e => e.preventDefault()} ref={formRef}>
-                    <fieldset>
-                        <h4 style={localStyles.h4}>Bill From</h4>
-                        <Address
-                            toOrFrom='from'
-                            {...senderAddress}
-                            setAddress={setSenderAddress}
-                            validateField={validateField}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <h4 style={localStyles.h4}>Bill To</h4>
-                        <label htmlFor="name">
-                            <span>Client's Name</span>
-                            <input type="text" name="name" id="name" value={clientName} onChange={e => handleChange(e, setClientName)} required />
-                        </label>
-                        <label htmlFor="email">
-                            <span>Client's Email</span>
-                            <input type="email" name="email" id="email" value={clientEmail} onChange={e => handleChange(e, setClientEmail)} required />
-                        </label>
-                        <Address
-                            toOrFrom='to'
-                            {...clientAddress}
-                            setAddress={setClientAddress}
-                            validateField={validateField}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label htmlFor="date">Invoice Date</label>
-                        <input type="date" name="date" id="date" value={createdAt} onChange={e => handleChange(e, setCreatedAt)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
-                        <label htmlFor="term">Payment Terms</label>
-                        <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
-                            <option value="1">Net 1 Day</option>
-                            <option value="7">Net 7 Days</option>
-                            <option value="14">Net 14 Days</option>
-                            <option value="30">Net 30 Days</option>
-                        </select>
-                        <label htmlFor="description">
-                            <span>Project Description</span>
-                            <input type="text" name="description" id="description" value={description} onChange={e => handleChange(e, setDescription)} required />
-                        </label>
-                    </fieldset>
-                    <h3 className={styles.item_header}>Item List</h3>
-                    <div className={styles.item_legend}>
-                        <p>Total</p>
-                        <p>Qty.</p>
-                        <p>Price</p>
-                        <p>Total</p>
-                    </div>
-                    <ul>
-                        {items.length > 0 && items.map(item => (
-                                <FormItem {...item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
-                            ))}
-                    </ul>
-                    <Button variant='add' onClick={addItem}>
-                        <PlusIcon />
-                        <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
-                    </Button>
-                    <div className={styles.red_div}>
-                        {!formValid && <p className={styles.red_text}>- All fields must be added</p>}
-                        {!itemsValid && <p className={styles.red_text}>- An item must be added</p>}
-                    </div>
-                    <div className={styles.btn_div}>
-                        <Button variant={invoice ? 'cancel' : 'discard'} onClick={closeForm}>
-                            {invoice ? 'Cancel' : 'Discard'}
+        <>
+            <div className={styles.modal} ref={modalRef}>
+                <div className={styles.wrapper} ref={wrapperRef}>
+                    <BackButton handleClick={closeForm} marginBottom='26px' />
+                    {invoice ? (
+                            <h2>Edit <span style={{ color: 'var(--color-text-accent)' }}>#</span>{invoice?.id}</h2>
+                        ) : (
+                            <h2>New Invoice</h2>
+                        )
+                    }
+                    <form action="" onSubmit={e => e.preventDefault()} ref={formRef}>
+                        <fieldset>
+                            <h4 style={localStyles.h4}>Bill From</h4>
+                            <Address
+                                toOrFrom='from'
+                                {...senderAddress}
+                                setAddress={setSenderAddress}
+                                validateField={validateField}
+                            />
+                        </fieldset>
+                        <fieldset>
+                            <h4 style={localStyles.h4}>Bill To</h4>
+                            <label htmlFor="name">
+                                <span>Client's Name</span>
+                                <input type="text" name="name" id="name" value={clientName} onChange={e => handleChange(e, setClientName)} required />
+                            </label>
+                            <label htmlFor="email">
+                                <span>Client's Email</span>
+                                <input type="email" name="email" id="email" value={clientEmail} onChange={e => handleChange(e, setClientEmail)} required />
+                            </label>
+                            <Address
+                                toOrFrom='to'
+                                {...clientAddress}
+                                setAddress={setClientAddress}
+                                validateField={validateField}
+                            />
+                        </fieldset>
+                        <fieldset>
+                            <label htmlFor="date">Invoice Date</label>
+                            <input type="date" name="date" id="date" value={createdAt} onChange={e => handleChange(e, setCreatedAt)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
+                            <label htmlFor="term">Payment Terms</label>
+                            <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
+                                <option value="1">Net 1 Day</option>
+                                <option value="7">Net 7 Days</option>
+                                <option value="14">Net 14 Days</option>
+                                <option value="30">Net 30 Days</option>
+                            </select>
+                            <label htmlFor="description">
+                                <span>Project Description</span>
+                                <input type="text" name="description" id="description" value={description} onChange={e => handleChange(e, setDescription)} required />
+                            </label>
+                        </fieldset>
+                        <h3 className={styles.item_header}>Item List</h3>
+                        <div className={styles.item_legend}>
+                            <p>Total</p>
+                            <p>Qty.</p>
+                            <p>Price</p>
+                            <p>Total</p>
+                        </div>
+                        <ul>
+                            {items.length > 0 && items.map(item => (
+                                    <FormItem {...item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
+                                ))}
+                        </ul>
+                        <Button variant='add' onClick={addItem}>
+                            <PlusIcon />
+                            <span style={{ marginLeft: '0.5rem' }}>Add New Item</span>
                         </Button>
-                        {(!invoice || invoice.status === 'draft') && <Button variant='draft' onClick={saveDraft}>
-                            Save As Draft
-                        </Button>}
-                        <Button variant='save' onClick={handleSubmit}>
-                            Save {invoice?.status === 'pending' ? 'Changes' : '& Send'}
-                        </Button>
-                    </div>
-                </form>
+                        <div className={styles.red_div}>
+                            {!formValid && <p className={styles.red_text}>- All fields must be added</p>}
+                            {!itemsValid && <p className={styles.red_text}>- An item must be added</p>}
+                        </div>
+                        <div className={styles.btn_div}>
+                            <Button variant={invoice ? 'cancel' : 'discard'} onClick={closeForm}>
+                                {invoice ? 'Cancel' : 'Discard'}
+                            </Button>
+                            {(!invoice || invoice.status === 'draft') && <Button variant='draft' onClick={saveDraft}>
+                                Save As Draft
+                            </Button>}
+                            <Button variant='save' onClick={handleSubmit}>
+                                Save {invoice?.status === 'pending' ? 'Changes' : '& Send'}
+                            </Button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+            <Modal isVisible={successModalVisible}>
+                <div className={styles.success_modal}>
+                    <h3>Invoice saved!</h3>
+                    <div>
+                        <Button variant='edit' onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant='save' onClick={handleBack}>
+                            Back to invoices
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
+        </>
     )
 }

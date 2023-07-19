@@ -343,25 +343,6 @@
     width: max-content;
 }
 
-.delete_modal {
-    position: fixed;
-    height: calc(100% - 72px);
-    width: 100%;
-    top: 72px;
-    left: 0;
-    background: #00000099;
-    place-items: center;
-    padding-inline: 24px;
-}
-
-@media screen and (min-width: 1200px) {
-    .delete_modal {
-        top: 0;
-        left: 103px;
-        height: 100%;
-    }
-}
-
 .delete_modal_form {
     max-width: 480px;
     width: 100%;
