@@ -34,7 +34,7 @@ const invoiceNotFound = {
     total: 0
 }
 
-export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, toggleEditInvoiceForm }) {
+export default function InvoiceDetail({ refresh, invoices, deleteInvoice, updateInvoice, toggleEditInvoiceForm }) {
     const { id } = useParams()
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
@@ -73,7 +73,7 @@ export default function InvoiceDetail({ invoices, deleteInvoice, updateInvoice, 
         })
 
         markInvoicePaid(invoiceId)
-            .then(res => console.log(res))
+            .then(() => refresh())
             .catch(e => console.log(e))
     }
 

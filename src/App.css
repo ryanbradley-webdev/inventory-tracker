@@ -173,6 +173,16 @@ select {
     caret-color: var(--color-purple-primary);
 }
 
+select {
+    appearance: none;
+}
+
+label:has(select) svg {
+    position: absolute;
+    top: 42px;
+    right: 22px;
+}
+
 input:is(:hover, :focus),
 select:is(:hover, :focus) {
     outline: none;
@@ -193,4 +203,8 @@ label:has(input.invalid)::after {
     font-weight: 600;
     letter-spacing: -0.21px;
     line-height: 15px;
+}
+
+label:has(input[type='date']:disabled) svg {
+    opacity: 0.5;
 }

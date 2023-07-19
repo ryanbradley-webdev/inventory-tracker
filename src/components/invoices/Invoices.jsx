@@ -7,7 +7,7 @@ import styles from './invoices.module.css'
 import { useEffect, useState } from 'react'
 import FilterMenu from './FilterMenu'
 
-export default function Invoices({ invoices, toggleEditInvoiceForm }) {
+export default function Invoices({ error, loading, invoices, toggleEditInvoiceForm }) {
     const navigate = useNavigate()
 
     const [filter, setFilter] = useState([])
@@ -75,9 +75,11 @@ export default function Invoices({ invoices, toggleEditInvoiceForm }) {
                 </div>
             </div>
             {
-                filteredInvoices.length === 0 
-                ? <IllustrationEmpty />
-                : filteredInvoices.map(invoice => <Invoice invoice={invoice} key={invoice.invoiceId} selectInvoice={selectInvoice} />)
+                filteredInvoices.length > 0 
+                ? filteredInvoices.map(invoice => <Invoice invoice={invoice} key={invoice.invoiceId} selectInvoice={selectInvoice} />)
+                : (loading || error)
+                    ? <div>{loading && 'Loading...'}{error && 'Something went wrong'}</div>
+                    : <IllustrationEmpty />
             }
         </section>
     )

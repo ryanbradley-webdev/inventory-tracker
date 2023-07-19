@@ -11,8 +11,10 @@ import { calculateDueDate } from "../../../lib/calculateDueDate"
 import { letterArr } from '../../../lib/letterArr'
 import { saveInvoice } from "../../../lib/saveInvoice"
 import Modal from "../modal/Modal"
+import CalendarIcon from "../../assets/CalendarIcon"
+import ArrowDownIcon from "../../assets/ArrowDownIcon"
 
-export default function Form({ invoiceIds, hideForm, isVisible, invoice, generateId }) {
+export default function Form({ refresh, invoiceIds, hideForm, isVisible, invoice, generateId }) {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const navigate = useNavigate()
@@ -105,6 +107,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         saveInvoice(draftInvoice)
             .then(() => {
                 setSuccessModalVisible(true)
+                refresh()
             })
             .catch(res => {
                 console.log(res)
@@ -170,6 +173,7 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
         saveInvoice(newInvoice)
             .then(() => {
                 setSuccessModalVisible(true)
+                refresh()
             })
             .catch(res => {
                 console.log(res)
@@ -298,15 +302,24 @@ export default function Form({ invoiceIds, hideForm, isVisible, invoice, generat
                             />
                         </fieldset>
                         <fieldset>
-                            <label htmlFor="date">Invoice Date</label>
-                            <input type="date" name="date" id="date" value={createdAt} onChange={e => handleChange(e, setCreatedAt)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
-                            <label htmlFor="term">Payment Terms</label>
-                            <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
-                                <option value="1">Net 1 Day</option>
-                                <option value="7">Net 7 Days</option>
-                                <option value="14">Net 14 Days</option>
-                                <option value="30">Net 30 Days</option>
-                            </select>
+                            <label htmlFor="date">
+                                <span>Invoice Date</span>
+                                <div className={styles.date_div}></div>
+                                <input className={styles.date_input} type="date" name="date" id="date" value={createdAt} onChange={e => handleChange(e, setCreatedAt)} min={new Date().toISOString().slice(0, 10)} disabled={invoice?.status === 'pending' || invoice?.status === 'paid'} />
+                                <div className={styles.calendar_icon}>
+                                    <CalendarIcon />
+                                </div>
+                            </label>
+                            <label htmlFor="term">
+                                <span>Payment Terms</span>
+                                <select name="term" id="term" value={paymentTerms} onChange={e => setPaymentTerms(e.target.value)} required>
+                                    <option value="1">Net 1 Day</option>
+                                    <option value="7">Net 7 Days</option>
+                                    <option value="14">Net 14 Days</option>
+                                    <option value="30">Net 30 Days</option>
+                                </select>
+                                <ArrowDownIcon />
+                            </label>
                             <label htmlFor="description">
                                 <span>Project Description</span>
                                 <input type="text" name="description" id="description" value={description} onChange={e => handleChange(e, setDescription)} required />

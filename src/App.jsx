@@ -4,7 +4,6 @@ import Sidebar from './components/sidebar/Sidebar'
 import Invoices from './components/invoices/Invoices'
 import './App.css'
 import InvoiceDetail from './components/invoices/InvoiceDetail'
-import sampleData from './sampleData/data.json'
 import Form from './components/form/Form'
 import { getInvoices } from '../lib/getInvoices'
 import { deleteInvoiceById } from '../lib/deleteInvoiceById'
@@ -17,6 +16,8 @@ export default function App() {
   const [invoices, setInvoices] = useState([])
   const [editInvoiceVisible, setEditInvoiceVisible] = useState(false)
   const [selectedInvoice, setSelectedInvoice] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   function updateInvoice(updatedInvoice) {
     setInvoices(invoices.map(invoice => {
@@ -37,6 +38,24 @@ export default function App() {
     setEditInvoiceVisible(!editInvoiceVisible)
   }
 
+  async function refreshInvoices() {
+    setLoading(true)
+
+    try {
+      const refreshedInvoices = await getInvoices()
+
+      if (refreshInvoices === 'Failed to fetch') {
+        setError(true)
+      } else {
+        setInvoices(refreshedInvoices)
+      }
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     if (searchParams.has('edit') && searchParams.get('edit')) {
       const id = pathname.replace('/', '')
@@ -50,17 +69,7 @@ export default function App() {
   }, [searchParams])
 
   useEffect(() => {
-    getInvoices()
-      .then(data => {
-        if (data === 'Failed to fetch') {
-          setInvoices([])
-        } else {
-          setInvoices(data)
-        }
-      })
-      .catch(e => {
-        setInvoices([])
-      })
+    refreshInvoices()
   }, [])
 
   return (
@@ -69,10 +78,11 @@ export default function App() {
       <main>
         <Routes>
           <Route path='/'>
-            <Route index  element={<Invoices invoices={invoices} toggleEditInvoiceForm={toggleEditInvoiceForm} />} />
+            <Route index  element={<Invoices error={error} loading={loading} invoices={invoices} toggleEditInvoiceForm={toggleEditInvoiceForm} />} />
             <Route path=':id' element=
               {
-                <InvoiceDetail 
+                <InvoiceDetail
+                  refresh={refreshInvoices}
                   invoices={invoices} 
                   deleteInvoice={deleteInvoice} 
                   updateInvoice={updateInvoice}
@@ -82,7 +92,7 @@ export default function App() {
             />
           </Route>
         </Routes>
-        <Form invoiceIds={invoices?.map(invoice => invoice.invoiceId)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
+        <Form refresh={refreshInvoices} invoiceIds={invoices?.map(invoice => invoice.invoiceId)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
       </main>
     </>
   )
