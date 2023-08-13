@@ -92,7 +92,7 @@ export default function App() {
             />
           </Route>
         </Routes>
-        <Form refresh={refreshInvoices} invoiceIds={invoices?.map(invoice => invoice.invoiceId)} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
+        <Form refresh={refreshInvoices} invoiceIds={invoices ? invoices?.map(invoice => invoice.invoiceId) : []} isVisible={editInvoiceVisible} hideForm={toggleEditInvoiceForm} invoice={selectedInvoice} />
       </main>
     </>
   )

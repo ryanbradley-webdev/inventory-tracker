@@ -42,7 +42,9 @@ export default function Invoices({ error, loading, invoices, toggleEditInvoiceFo
     }, [filter])
 
     useEffect(() => {
-        setFilteredInvoices(invoices)
+        if (typeof invoices !== 'string') {
+            setFilteredInvoices(invoices)
+        }
     }, [invoices])
 
     return (
